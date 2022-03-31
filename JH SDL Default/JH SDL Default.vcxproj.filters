@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Engine">
+      <UniqueIdentifier>{2a130ff1-ba65-4b44-aba9-66b42ada81b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Editor">
+      <UniqueIdentifier>{d6b87760-20fd-43fc-8350-b2b831396b28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\System">
+      <UniqueIdentifier>{314c8fe2-5604-4193-b090-12ec7bdefdf5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine">
+      <UniqueIdentifier>{c8ab3f4a-c3bc-4eee-b202-dc3f0bd2ac1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Editor">
+      <UniqueIdentifier>{05781f9c-e2b6-41a7-98aa-fd0414d8f84c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\System">
+      <UniqueIdentifier>{8c8f0181-b158-4b3b-997a-f1dffafcd85a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\imGui">
+      <UniqueIdentifier>{ac90acad-bdf9-4ef9-9e71-ca6ba06f9bb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Objects">
+      <UniqueIdentifier>{2295e4d1-7ee6-47aa-aca4-f4e893187012}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Objects\Components">
+      <UniqueIdentifier>{d6496fef-9065-44da-9155-1a6e7eb354cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\System\Objects">
+      <UniqueIdentifier>{ceb2b5ca-6d8a-4cb4-93f2-18f0925c12be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\System\Objects\Components">
+      <UniqueIdentifier>{2b8027cf-67f4-4ef4-b74b-56a81d1680e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\DemoGame">
+      <UniqueIdentifier>{42bf42c1-507d-4593-9b7a-0e97380df1df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DemoGame">
+      <UniqueIdentifier>{1891e84f-cf76-4802-a54c-2041a72d0247}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="System.cpp">
+      <Filter>Source Files\Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="EventManager.cpp">
+      <Filter>Source Files\Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenManager.cpp">
+      <Filter>Source Files\Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Time.cpp">
+      <Filter>Source Files\Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Events.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectManager.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\imgui_sdl-master\imgui_sdl.cpp">
+      <Filter>Resource Files\imGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\imgui-master\imgui.cpp">
+      <Filter>Resource Files\imGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\imgui-master\imgui_demo.cpp">
+      <Filter>Resource Files\imGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\imgui-master\imgui_draw.cpp">
+      <Filter>Resource Files\imGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\imgui-master\imgui_tables.cpp">
+      <Filter>Resource Files\imGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\imgui-master\imgui_widgets.cpp">
+      <Filter>Resource Files\imGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\imgui-master\backends\imgui_impl_sdl.cpp">
+      <Filter>Resource Files\imGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Source Files\Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Source Files\Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Source Files\Engine\System\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseObject.cpp">
+      <Filter>Source Files\Engine\System\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Source Files\Engine\System\Objects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Source Files\Engine\System\Objects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseComponent.cpp">
+      <Filter>Source Files\Engine\System\Objects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics.cpp">
+      <Filter>Source Files\Engine\System\Objects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseScript.cpp">
+      <Filter>Source Files\Engine\System\Objects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files\DemoGame</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Events.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="EventManager.h">
+      <Filter>Header Files\Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenManager.h">
+      <Filter>Header Files\Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="System.h">
+      <Filter>Header Files\Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Time.h">
+      <Filter>Header Files\Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\imgui_sdl-master\imgui_sdl.h">
+      <Filter>Resource Files\imGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\imgui-master\imconfig.h">
+      <Filter>Resource Files\imGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\imgui-master\imgui.h">
+      <Filter>Resource Files\imGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\imgui-master\imgui_internal.h">
+      <Filter>Resource Files\imGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\imgui-master\imstb_rectpack.h">
+      <Filter>Resource Files\imGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\imgui-master\imstb_textedit.h">
+      <Filter>Resource Files\imGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\imgui-master\imstb_truetype.h">
+      <Filter>Resource Files\imGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\imgui-master\backends\imgui_impl_sdl.h">
+      <Filter>Resource Files\imGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectManager.h">
+      <Filter>Header Files\Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Header Files\Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Header Files\Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Header Files\Engine\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseObject.h">
+      <Filter>Header Files\Engine\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Header Files\Engine\Objects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Header Files\Engine\Objects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseComponent.h">
+      <Filter>Header Files\Engine\Objects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics.h">
+      <Filter>Header Files\Engine\Objects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseScript.h">
+      <Filter>Header Files\Engine\Objects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files\DemoGame</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

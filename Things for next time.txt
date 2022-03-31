@@ -1,0 +1,3 @@
+does physics need to check for sprite existing on the object to be added as it uses the collision box 
+from the sprite to do so. also needs the layer it is on for collisions.
+Also need to give layers collision variable as some might not be collidable and some might be
