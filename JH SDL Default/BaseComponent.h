@@ -11,6 +11,7 @@ public:
 	virtual void Update();
 	virtual void DrawGui();
 
+	virtual void HandleEvent(BaseEvent* event);
 
 	BaseObject* GetOwner() { return owner; }
 	ComponentType GetType() { return type; }

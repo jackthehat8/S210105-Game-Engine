@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseScript.h"
+
 class Player :
     public BaseScript
 {
@@ -7,8 +8,8 @@ private:
     int health;
     int maxHealth;
 
-    int moveSpeed;
-    int jumpMultiplier;
+    float moveSpeed = 1.0f;
+    float jumpForce = 5.0f;
 
     void jump();
 
@@ -16,10 +17,12 @@ private:
 
     bool landed = false;
 
-    Vector2f respawnPosition;
+    BaseObject* currentCheckpoint;
 public:
     Player(BaseObject* owner_);
 
     void update();
+
+    void HandleEvent(BaseEvent* event);
 };
 

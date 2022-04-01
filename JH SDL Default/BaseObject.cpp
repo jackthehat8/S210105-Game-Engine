@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Transform.h"
 #include "BaseComponent.h"
+#include "BaseScript.h"
 
 BaseObject::BaseObject(const char* name_, int x, int y)
 {
@@ -88,10 +89,24 @@ BaseComponent* BaseObject::GetComponent(ComponentType type)
 	return nullptr;
 }
 
+void BaseObject::HandleEvent(BaseEvent* event)
+{
+	for (BaseComponent* component : components) {
+		if(component != nullptr)
+			component->HandleEvent(event);
+	}
+	for (BaseComponent* script : scripts) {
+		script->HandleEvent(event);
+	}
+}
+
 
 
 void BaseObject::PreRender()
 {
+	for (BaseComponent* script : scripts) {
+		script->Update();
+	}
 	if (components[PHYSICS] != nullptr)
 		components[PHYSICS]->Update();
 

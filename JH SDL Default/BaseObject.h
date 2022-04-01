@@ -1,5 +1,6 @@
 #pragma once
 #include "ObjectManager.h"
+#include "Events.h"
 #include <map>
 
 class Transform;
@@ -27,16 +28,15 @@ public:
     void OnMouseHeld();
 
     vector<string> GetTags() { return tags; }
-
     void AddTag(string tag);
-
     void RemoveTag(string tag);
-
     bool HasTag(string tag);
 
     void AddComponent(BaseComponent* component);
     BaseComponent* GetComponent(ComponentType);
    
+    void HandleEvent(BaseEvent* event);
+
 protected:
     vector<BaseComponent*> scripts;
     BaseComponent* components[COMPONENT_COUNT]; //does not include scripts

@@ -3,7 +3,7 @@
 #include "Vector.h"
 
 using namespace std;
-class GameObject;
+class BaseObject;
 
 class BaseEvent
 {
@@ -28,24 +28,18 @@ public:
 };
 
 class UpInput : public KeyInput {
-protected:
-	string EventType = "Up";
 public:
-	UpInput(bool keyDown_) : KeyInput(keyDown_) {};
+	UpInput(bool keyDown_) : KeyInput(keyDown_) { EventType = "Up"; }
 };
 
 class LeftInput : public KeyInput {
-protected:
-	string EventType = "Left";
 public: 
-	LeftInput(bool keyDown_) : KeyInput(keyDown_) {};
+	LeftInput(bool keyDown_) : KeyInput(keyDown_) { EventType = "Left"; }
 };
 
 class RightInput : public KeyInput {
-protected:
-	string EventType = "Right";
 public:
-	RightInput(bool keyDown_) : KeyInput(keyDown_) {};
+	RightInput(bool keyDown_) : KeyInput(keyDown_) { EventType = "Right"; };
 };
 
 class EscapeInput : public KeyInput {

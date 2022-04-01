@@ -16,17 +16,11 @@
     <Filter Include="Header Files\Engine">
       <UniqueIdentifier>{2a130ff1-ba65-4b44-aba9-66b42ada81b4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Editor">
-      <UniqueIdentifier>{d6b87760-20fd-43fc-8350-b2b831396b28}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Engine\System">
       <UniqueIdentifier>{314c8fe2-5604-4193-b090-12ec7bdefdf5}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Engine">
       <UniqueIdentifier>{c8ab3f4a-c3bc-4eee-b202-dc3f0bd2ac1d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Editor">
-      <UniqueIdentifier>{05781f9c-e2b6-41a7-98aa-fd0414d8f84c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Engine\System">
       <UniqueIdentifier>{8c8f0181-b158-4b3b-997a-f1dffafcd85a}</UniqueIdentifier>
@@ -40,17 +34,17 @@
     <Filter Include="Header Files\Engine\Objects\Components">
       <UniqueIdentifier>{d6496fef-9065-44da-9155-1a6e7eb354cf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Engine\System\Objects">
-      <UniqueIdentifier>{ceb2b5ca-6d8a-4cb4-93f2-18f0925c12be}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Engine\System\Objects\Components">
-      <UniqueIdentifier>{2b8027cf-67f4-4ef4-b74b-56a81d1680e7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\DemoGame">
       <UniqueIdentifier>{42bf42c1-507d-4593-9b7a-0e97380df1df}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\DemoGame">
       <UniqueIdentifier>{1891e84f-cf76-4802-a54c-2041a72d0247}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Objects">
+      <UniqueIdentifier>{ceb2b5ca-6d8a-4cb4-93f2-18f0925c12be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Objects\Components">
+      <UniqueIdentifier>{2b8027cf-67f4-4ef4-b74b-56a81d1680e7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -73,9 +67,6 @@
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectManager.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
     <ClCompile Include="..\Libraries\imgui_sdl-master\imgui_sdl.cpp">
@@ -106,28 +97,34 @@
       <Filter>Source Files\Engine\System</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files\Engine\System\Objects</Filter>
+      <Filter>Source Files\Engine\Objects</Filter>
     </ClCompile>
     <ClCompile Include="BaseObject.cpp">
-      <Filter>Source Files\Engine\System\Objects</Filter>
+      <Filter>Source Files\Engine\Objects</Filter>
     </ClCompile>
     <ClCompile Include="Transform.cpp">
-      <Filter>Source Files\Engine\System\Objects\Components</Filter>
+      <Filter>Source Files\Engine\Objects\Components</Filter>
     </ClCompile>
     <ClCompile Include="Sprite.cpp">
-      <Filter>Source Files\Engine\System\Objects\Components</Filter>
+      <Filter>Source Files\Engine\Objects\Components</Filter>
     </ClCompile>
     <ClCompile Include="BaseComponent.cpp">
-      <Filter>Source Files\Engine\System\Objects\Components</Filter>
+      <Filter>Source Files\Engine\Objects\Components</Filter>
     </ClCompile>
     <ClCompile Include="Physics.cpp">
-      <Filter>Source Files\Engine\System\Objects\Components</Filter>
+      <Filter>Source Files\Engine\Objects\Components</Filter>
     </ClCompile>
     <ClCompile Include="BaseScript.cpp">
-      <Filter>Source Files\Engine\System\Objects\Components</Filter>
+      <Filter>Source Files\Engine\Objects\Components</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Source Files\DemoGame</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraMovement.cpp">
+      <Filter>Source Files\DemoGame</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectManager.cpp">
+      <Filter>Source Files\Engine\System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -210,6 +207,9 @@
       <Filter>Header Files\Engine\Objects\Components</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
+      <Filter>Header Files\DemoGame</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraMovement.h">
       <Filter>Header Files\DemoGame</Filter>
     </ClInclude>
   </ItemGroup>

@@ -11,7 +11,6 @@ public:
     Transform(Vector2f pos, BaseObject* owner_);
 
     void Update();
-
     void DrawGui();
 
     Vector2f GetGlobalPos();

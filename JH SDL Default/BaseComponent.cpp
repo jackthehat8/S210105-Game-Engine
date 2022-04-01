@@ -7,3 +7,7 @@ void BaseComponent::Update()
 void BaseComponent::DrawGui()
 {
 }
+
+void BaseComponent::HandleEvent(BaseEvent* event)
+{
+}

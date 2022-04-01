@@ -8,7 +8,6 @@ public:
     Sprite(const char* fileName, BaseObject* owner_, int renderLayer_ = 0,  bool useTransparency = false );
 
     void Update();
-
     void DrawGui();
     bool CheckClicked();
 

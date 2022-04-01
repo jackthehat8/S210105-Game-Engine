@@ -2,6 +2,9 @@
 #include "Sprite.h"
 #include "Transform.h"
 #include "Vector.h"
+#include "Player.h"
+#include "CameraMovement.h"
+#include "EventManager.h";
 #include <iostream>
 
 Game* Game::instance = NULL;
@@ -25,6 +28,8 @@ Game::Game() {
 	//m_monsterTransKeyed = new BaseObject("monster transparent", updates, resourceManager, m_renderer, "assets/monsterTrans.bmp", true, updates->Enemies, true);
 	//m_monsterTransKeyed->SetPosition(125, 50);
 
+	EventManager* eventManager = EventManager::GetInstance();
+
 	monster = new BaseObject("monster", 100, 100);
 	monster->AddComponent(new Sprite("assets/monster.bmp", monster, 3));
 	monster->AddComponent(new Physics(monster, DYNAMIC, COLLIDE));
@@ -35,6 +40,15 @@ Game::Game() {
 	monsterTransKeyed = new BaseObject("monster transparent", 125, 50);
 	monsterTransKeyed->AddComponent(new Sprite("assets/monsterTrans.bmp", monsterTransKeyed, 2, true));
 	monsterTransKeyed->AddComponent(new Physics(monsterTransKeyed, DYNAMIC, COLLIDE));
+	monsterTransKeyed->AddComponent(new Player(monsterTransKeyed));
+
+	eventManager->AddListener("Left", monsterTransKeyed);
+	eventManager->AddListener("Right", monsterTransKeyed);
+	eventManager->AddListener("Up", monsterTransKeyed);
+
+	BaseObject* camera = new BaseObject("Camera", ScreenWidth/2, ScreenHeight/2);
+	camera->AddComponent(new CameraMovement(camera, true, false));
+	camera->SetParent(monsterTransKeyed);
 
 	floor = new BaseObject("floor", 0, ScreenHeight-10);
 	floor->AddComponent(new Sprite("assets/floor.bmp", floor, 1));
@@ -103,7 +117,7 @@ void Game::Update(void) {
 	EventManager::GetInstance()->FireEvents(); //fires all the events of the previous
 
 	//((Transform*)monster->GetComponent(TRANSFORM))->SetPosition(((Transform*)monster->GetComponent(TRANSFORM))->GetLocalPosition() + Vector2f(0.1, 0));
-	((Physics*)monster->GetComponent(PHYSICS))->AddForce(Vector2f(0.1, 0));
+	//((Physics*)monster->GetComponent(PHYSICS))->AddForce(Vector2f(0.1, 0));
 	updates->Update();
 
 	mainSystem->GetInputManager()->Update();

@@ -12,7 +12,7 @@ private:
 
 	static EventManager* eventManager;
 
-	map<size_t, vector<GameObject*>> listeners;
+	map<size_t, vector<BaseObject*>> listeners;
 
 	//referenced from: https://stackoverflow.com/questions/8029121/how-to-hash-stdstring
 	size_t hashString(string stringToHash);
@@ -24,7 +24,7 @@ public:
 
 	static EventManager* GetInstance();
 
-	void AddListener(string eventType, GameObject* object);
+	void AddListener(string eventType, BaseObject* object);
 	void QueueEvent(BaseEvent* event);
 	void FireEvents();
 };

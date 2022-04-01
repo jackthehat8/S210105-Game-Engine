@@ -13,6 +13,8 @@ void Transform::Update()
 {
 }
 
+
+
 void Transform::DrawGui()
 {
 	if (ImGui::TreeNodeEx("Transform", ImGuiTreeNodeFlags_DefaultOpen)) {

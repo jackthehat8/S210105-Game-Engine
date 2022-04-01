@@ -42,6 +42,8 @@ void Sprite::Update()
 	Draw();
 }
 
+
+
 void Sprite::DrawGui()
 {
 	ImGui::Text("Render Layer");
