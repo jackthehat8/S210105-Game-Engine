@@ -50,10 +50,8 @@ void EventManager::FireEvents()
     while(events.size() > 0){
         //gets the key from the produced event
         BaseEvent* currentEvent = events[0];
-
         //makes it into the key for the map
-        string key = currentEvent->returnType();
-        size_t hashKey = hashString(key);
+        size_t hashKey = hashString(currentEvent->returnType());
 
         //checks if that key exists in the map
         if (listeners.find(hashKey) != listeners.end()) {

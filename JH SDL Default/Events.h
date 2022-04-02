@@ -15,8 +15,8 @@ public:
 };
 
 class QuitEvent : public BaseEvent {
-protected:
-	string EventType = "Quit";
+public:
+	QuitEvent() { EventType = "Quit"; }
 };
 
 class KeyInput : public BaseEvent {
@@ -43,18 +43,15 @@ public:
 };
 
 class EscapeInput : public KeyInput {
-protected:
-	string EventType = "Escape";
 public:
-	EscapeInput(bool keyDown_) : KeyInput(keyDown_) {};
+	EscapeInput(bool keyDown_) : KeyInput(keyDown_) { EventType = "Escape"; }
 };
 
 class LMBInput : public KeyInput {
 protected:
-	string EventType = "LMB";
 	float x;
 	float y;
 public:
-	LMBInput(bool keyDown_, float x_, float y_) : KeyInput(keyDown_) { x = x_; y = y_; };
+	LMBInput(bool keyDown_, float x_, float y_) : KeyInput(keyDown_) { EventType = "LMB"; x = x_; y = y_; };
 	Vector2f GetMousePos();
 };

@@ -21,13 +21,6 @@ Game::Game() {
 
 	resourceManager = mainSystem->GetResourceManager();
 
-	//m_monster = new BaseObject("monster", updates, resourceManager, m_renderer, "assets/monster.bmp", true, updates->Player);
-	//m_monster->SetPosition(100, 100);
-	//m_monsterTrans = new BaseObject("monster purple", updates, resourceManager, m_renderer, "assets/monsterTrans.bmp", true, updates->Background);
-	//m_monsterTrans->SetPosition(150, 100);
-	//m_monsterTransKeyed = new BaseObject("monster transparent", updates, resourceManager, m_renderer, "assets/monsterTrans.bmp", true, updates->Enemies, true);
-	//m_monsterTransKeyed->SetPosition(125, 50);
-
 	EventManager* eventManager = EventManager::GetInstance();
 
 	monster = new BaseObject("monster", 100, 100);
@@ -41,12 +34,11 @@ Game::Game() {
 	monsterTransKeyed->AddComponent(new Sprite("assets/monsterTrans.bmp", monsterTransKeyed, 2, true));
 	monsterTransKeyed->AddComponent(new Physics(monsterTransKeyed, DYNAMIC, COLLIDE));
 	monsterTransKeyed->AddComponent(new Player(monsterTransKeyed));
-
 	eventManager->AddListener("Left", monsterTransKeyed);
 	eventManager->AddListener("Right", monsterTransKeyed);
 	eventManager->AddListener("Up", monsterTransKeyed);
 
-	BaseObject* camera = new BaseObject("Camera", ScreenWidth/2, ScreenHeight/2);
+	BaseObject* camera = new BaseObject("Camera", ((Physics*)monsterTransKeyed->GetComponent(PHYSICS))->GetCentre().x, ScreenHeight/2);
 	camera->AddComponent(new CameraMovement(camera, true, false));
 	camera->SetParent(monsterTransKeyed);
 

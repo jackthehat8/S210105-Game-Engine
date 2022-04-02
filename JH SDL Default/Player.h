@@ -8,20 +8,23 @@ private:
     int health;
     int maxHealth;
 
-    float moveSpeed = 1.0f;
-    float jumpForce = 5.0f;
+    float moveSpeed = 15.0f;
+    float jumpForce = 25.0f;
+
+    bool left;
+    bool right;
 
     void jump();
 
     void resetPlayer();
 
-    bool landed = false;
+    bool onPlatform = false;
 
     BaseObject* currentCheckpoint;
 public:
     Player(BaseObject* owner_);
 
-    void update();
+    void Update();
 
     void HandleEvent(BaseEvent* event);
 };

@@ -48,6 +48,9 @@ public:
     void SetBottom(float value);
 
     Vector2f GetForces() { return forces; }
+    void SetForces(Vector2f forces_) { forces = forces_; }
+    void SetXForce(float x) { forces.x = x; }
+    void SetYForce(float y) {forces.y = y;}
     void AddForce(Vector2f newVector) { forces += newVector; }
 
 
@@ -69,7 +72,7 @@ private:
     float top;
     float bottom;
 
-    const float gravity = 9.8f;
+    const float gravity = 75.0f;
     const int bufferDistance = 0;
 };
 

@@ -53,14 +53,11 @@ void Physics::Update()
 			Physics* objPhysics = (Physics*)(object->GetComponent(PHYSICS));
 			if (!owner->HasTag("Platform") && object->HasTag("Platform")) {
 				Vector2f objCentre = objPhysics->GetCentre();
-				if (centre.x > objCentre.x) { //object to the right of the collision
+				if (centre.x > objCentre.x) //object to the right of the collision
 					SetLeft(objPhysics->GetRight());
-					forces.x = 0;
-				}
-				else {
+				else
 					SetRight(objPhysics->GetLeft());
-					forces.x = 0;
-				}
+				forces.x = 0;
 			}
 		}
 
@@ -71,14 +68,11 @@ void Physics::Update()
 			Physics* objPhysics = (Physics*)(object->GetComponent(PHYSICS));
 			if (!owner->HasTag("Platform") && object->HasTag("Platform")) {
 				Vector2f objCentre = objPhysics->GetCentre();
-				if (centre.y > objCentre.y) { //lower then other object
+				if (centre.y > objCentre.y) //lower then other object
 					SetTop(objPhysics->GetBottom());
-					forces.y = 0;
-				}
-				else {
+				else 
 					SetBottom(objPhysics->GetTop());
-					forces.y = 0;
-				}
+				forces.y = 0;
 			}
 		}
 	}
