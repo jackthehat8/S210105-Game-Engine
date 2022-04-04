@@ -29,7 +29,6 @@ System::~System()
 	resourceManager->~ResourceManager();
 	screen->~ScreenManager();
 	eventManager->~EventManager();
-	delete(this);
 }
 
 System* System::GetInstance()

@@ -3,15 +3,19 @@
 #include "Transform.h"
 #include "BaseComponent.h"
 #include "BaseScript.h"
+#include "SceneManager.h"
 
-BaseObject::BaseObject(const char* name_, int x, int y)
+BaseObject::BaseObject(const char* name_, int x, int y, int sceneNumber)
 {
+	
 	Transform* temp = new Transform(Vector2f(x, y), this);
 	AddComponent(temp);
-	if(name_ != "Scene Root")
-		SetParent(ObjectManager::GetInstance()->GetSceneRoot());
+	scene = sceneNumber;
+	if (name_ != "Scene Root") {
+		SceneManager::GetInstance()->addObjectToScene(this, sceneNumber);
+		SetParent(ObjectManager::GetInstance()->GetSceneRoots()[scene]);
+	}
 	name = (char*)name_;
-	ObjectManager::GetInstance()->AddObject(this);
 }
 
 void BaseObject::OnMouseHeld()
@@ -157,7 +161,7 @@ void BaseObject::SetParent(BaseObject* parent_)
 	//this is used to make sure that there is not a recursive loop due to a child in the hierarchy being set as the parent of one above it
 	bool NonRecursive = true;
 	BaseObject* currentParent = parent_;
-	while (currentParent != ObjectManager::GetInstance()->GetSceneRoot())
+	while (currentParent != ObjectManager::GetInstance()->GetSceneRoots()[scene])
 	{
 		if (currentParent == this)
 		{
@@ -171,7 +175,7 @@ void BaseObject::SetParent(BaseObject* parent_)
 	if (NonRecursive)
 	{
 
-		if (parent != ObjectManager::GetInstance()->GetSceneRoot() && parent != nullptr)
+		if (parent != ObjectManager::GetInstance()->GetSceneRoots()[scene] && parent != nullptr)
 			RemoveParent();
 
 		parent = parent_;
@@ -189,7 +193,7 @@ void BaseObject::RemoveParent()
 {
 	((Transform*)GetComponent(TRANSFORM))->SetPosition(((Transform*)GetComponent(TRANSFORM))->GetGlobalPos());
 	parent->RemoveChild(this);
-	SetParent(ObjectManager::GetInstance()->GetSceneRoot());
+	SetParent(ObjectManager::GetInstance()->GetSceneRoots()[scene]);
 }
 
 void BaseObject::RemoveChild(BaseObject* child)

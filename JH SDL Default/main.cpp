@@ -32,7 +32,7 @@ int main(int argc, char* argv[])
 
 
 	while (!quit&& game) {
-		game->Update();
+		quit = game->Update();
 	}
 	game->~Game();
 	return 0;

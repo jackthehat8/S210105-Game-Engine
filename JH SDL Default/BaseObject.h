@@ -10,7 +10,7 @@ class BaseObject :
     public ObjectManager
 {
 public:
-    BaseObject(const char* name_, int x = 0, int y = 0);
+    BaseObject(const char* name_, int x = 0, int y = 0, int sceneNumber = 0);
 
     void PreRender();
     void Render();
@@ -36,6 +36,8 @@ public:
     BaseComponent* GetComponent(ComponentType);
    
     void HandleEvent(BaseEvent* event);
+   
+    int GetCurrentScene() { return scene; }
 
 protected:
     vector<BaseComponent*> scripts;
@@ -46,6 +48,8 @@ protected:
     vector<BaseObject*> children;
 
     vector<string> tags;
+
+    int scene;
 
     char* name;
     void AddChild(BaseObject* child) { children.push_back(child); }

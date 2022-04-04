@@ -63,15 +63,19 @@ public:
 	void AddObject(BaseObject* object);
 	void AddRenderer(SDL_Renderer* renderer);
 
-	BaseObject* GetSceneRoot() { return sceneRoot; }
+	vector<BaseObject*> GetSceneRoots() { return sceneRoots; }
 
 	const char* ComponentTypeToString(ComponentType type);
 	
+	void SetScene(vector<BaseObject*> newScene, int sceneNumber) { objects = newScene; currentScene = sceneNumber; }
 
+	void AddSceneRoot();
+
+	int currentScene = 0;
 private:
 	static ObjectManager* instance;
 
-	static BaseObject* sceneRoot;
+	vector<BaseObject*> sceneRoots;
 
 	BaseObject* selectedObject;
 	

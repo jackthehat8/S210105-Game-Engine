@@ -20,7 +20,7 @@ private:
 
 public:
 	EventManager() {}
-	~EventManager() { delete this; }
+	~EventManager() {}
 
 	static EventManager* GetInstance();
 

@@ -1,6 +1,8 @@
 #include "Player.h"
 #include "Sprite.h"
 #include <iostream>
+#include "SceneManager.h"
+#include "EventManager.h"
 
 using namespace std;
 
@@ -10,6 +12,10 @@ Player::Player(BaseObject* owner_)
 	health = maxHealth;
 	owner = owner_;
 
+	EventManager* eventManager = EventManager::GetInstance();
+	eventManager->AddListener("Left", owner);
+	eventManager->AddListener("Right", owner);
+	eventManager->AddListener("Up", owner);
 }
 
 void Player::jump()
@@ -24,13 +30,14 @@ void Player::resetPlayer()
 	((Physics*)owner->GetComponent(PHYSICS))->SetForces({ 0,0 });
 	if (currentCheckpoint != nullptr) {
 		Vector2f temp = ((Transform*)currentCheckpoint->GetComponent(TRANSFORM))->GetGlobalPos();
-		((Transform*)owner->GetComponent(TRANSFORM))->SetPosition(((Transform*)currentCheckpoint->GetComponent(TRANSFORM))->GetGlobalPos() - ((Transform*)ObjectManager::GetInstance()->GetSceneRoot()->GetComponent(TRANSFORM))->GetGlobalPos());
+		((Transform*)owner->GetComponent(TRANSFORM))->SetPosition(((Transform*)currentCheckpoint->GetComponent(TRANSFORM))->GetGlobalPos() - ((Transform*)ObjectManager::GetInstance()->GetSceneRoots()[owner->GetCurrentScene()]->GetComponent(TRANSFORM))->GetGlobalPos());
 	}
 
 }
 
 void Player::EndLevel()
 {
+	SceneManager::GetInstance()->setScene(2);
 }
 
 void Player::Update()

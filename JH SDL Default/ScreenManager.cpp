@@ -52,7 +52,6 @@ ScreenManager::~ScreenManager() {
 	if (m_window) {
 		SDL_DestroyWindow(m_window);
 	}
-	delete(this);
 }
 
 /// <summary>

@@ -1,4 +1,4 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (JH SDL Default.vcxproj, JH T1 Ex1.vcxproj, JH T1 Ex2.vcxproj, JH T2.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+﻿D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (JH SDL Default.vcxproj, JH T1 Ex1.vcxproj, JH T1 Ex2.vcxproj, JH T2.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   Game.cpp
 F:\-- Uni --\Year 2\Game Engine Dev\S210105 Game Engine\JH SDL Default\ObjectManager.h(19,2): warning C4091: 'static ': ignored on left of 'ComponentType' when no variable is declared
 F:\-- Uni --\Year 2\Game Engine Dev\S210105 Game Engine\JH SDL Default\Time.h(34,94): warning C4244: 'return': conversion from '_Rep' to 'int', possible loss of data
@@ -14,7 +14,9 @@ F:\-- Uni --\Year 2\Game Engine Dev\S210105 Game Engine\JH SDL Default\Transform
 F:\-- Uni --\Year 2\Game Engine Dev\S210105 Game Engine\JH SDL Default\Transform.h(21,46): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 F:\-- Uni --\Year 2\Game Engine Dev\S210105 Game Engine\JH SDL Default\Transform.h(22,46): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 F:\-- Uni --\Year 2\Game Engine Dev\S210105 Game Engine\JH SDL Default\Game.cpp(7,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-F:\-- Uni --\Year 2\Game Engine Dev\S210105 Game Engine\JH SDL Default\Game.cpp(41,115): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-F:\-- Uni --\Year 2\Game Engine Dev\S210105 Game Engine\JH SDL Default\Game.cpp(163,57): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-F:\-- Uni --\Year 2\Game Engine Dev\S210105 Game Engine\JH SDL Default\Game.cpp(176,21): warning C4018: '<': signed/unsigned mismatch
+F:\-- Uni --\Year 2\Game Engine Dev\S210105 Game Engine\JH SDL Default\Text.h(15,109): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+F:\-- Uni --\Year 2\Game Engine Dev\S210105 Game Engine\JH SDL Default\Text.h(15,102): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+F:\-- Uni --\Year 2\Game Engine Dev\S210105 Game Engine\JH SDL Default\Game.cpp(53,116): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+F:\-- Uni --\Year 2\Game Engine Dev\S210105 Game Engine\JH SDL Default\Game.cpp(183,57): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+F:\-- Uni --\Year 2\Game Engine Dev\S210105 Game Engine\JH SDL Default\Game.cpp(196,21): warning C4018: '<': signed/unsigned mismatch
   JH SDL Default.vcxproj -> F:\-- Uni --\Year 2\Game Engine Dev\S210105 Game Engine\Debug\S210105 Game Engine.exe

@@ -12,7 +12,7 @@ void Enemy::Update()
 {
 	Transform* transfrom = (Transform*)owner->GetComponent(TRANSFORM);
 	float currentXPos = transfrom->GetGlobalPos().x;
-	float xSceneRootOffset = ((Transform*)ObjectManager::GetInstance()->GetSceneRoot()->GetComponent(TRANSFORM))->GetGlobalPos().x;
+	float xSceneRootOffset = ((Transform*)ObjectManager::GetInstance()->GetSceneRoots()[owner->GetCurrentScene()]->GetComponent(TRANSFORM))->GetGlobalPos().x;
 	if (currentXPos <= xStartPos + xSceneRootOffset)
 		movingRight = true;
 	else if (xEndPos + xSceneRootOffset <= currentXPos)

@@ -18,7 +18,7 @@ CameraMovement::CameraMovement(BaseObject* owner_, bool changeX_, bool changeY_)
 	if (changeY)
 		yChange = currentPos.y - scrrenStartPos.y;
 
-	Transform* sceneRootTransform = (Transform*)ObjectManager::GetInstance()->GetSceneRoot()->GetComponent(TRANSFORM);
+	Transform* sceneRootTransform = (Transform*)ObjectManager::GetInstance()->GetSceneRoots()[owner->GetCurrentScene()]->GetComponent(TRANSFORM);
 	sceneRootTransform->SetPosition(sceneRootTransform->GetGlobalPos().x - xChange, sceneRootTransform->GetGlobalPos().y - yChange);
 
 	previousFramePos = ((Transform*)owner->GetComponent(TRANSFORM))->GetGlobalPos();
@@ -36,7 +36,7 @@ void CameraMovement::Update()
 	if(changeY)
 		yChange = currentPos.y - previousFramePos.y;
 
-	Transform* sceneRootTransform = (Transform*)ObjectManager::GetInstance()->GetSceneRoot()->GetComponent(TRANSFORM);
+	Transform* sceneRootTransform = (Transform*)ObjectManager::GetInstance()->GetSceneRoots()[owner->GetCurrentScene()]->GetComponent(TRANSFORM);
 	sceneRootTransform->SetPosition(sceneRootTransform->GetGlobalPos().x - xChange, sceneRootTransform->GetGlobalPos().y - yChange);
 
 	previousFramePos = ((Transform*)owner->GetComponent(TRANSFORM))->GetGlobalPos();

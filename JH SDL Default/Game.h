@@ -64,23 +64,20 @@ private:
 
 	ResourceManager* resourceManager;
 
-	TTF_Font* m_pSmallFont;
-	TTF_Font* m_pBigFont;
-
 	FrameQueue frames;
 
 	vector<IMGUISprite*> directoryContent;
 
 	bool GUIVisable = true;
 
+	bool quit = false;
+
 	static Game* instance;
 public:
 	Game();
 	~Game();
 
-	void UpdateText(string msg, int x, int y, TTF_Font* font, SDL_Color colour);
-
-	void Update(void);
+	bool Update(void);
 
 	void Delay(Uint32);
 
@@ -91,6 +88,8 @@ public:
 	static Game* GetInstance();
 
 	bool getGUIVisable() { return GUIVisable; }
+
+	void Quit() { quit = true; }
 };
 
 #endif

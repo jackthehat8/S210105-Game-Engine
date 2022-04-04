@@ -7,6 +7,9 @@
 #include "EventManager.h";
 #include <iostream>
 #include "Enemy.h"
+#include "Text.h"
+#include "QuitButton.h"
+#include "PlayButton.h"
 
 Game* Game::instance = NULL;
 
@@ -21,85 +24,111 @@ Game::Game() {
 	updates->AddRenderer(m_renderer);
 
 	resourceManager = mainSystem->GetResourceManager();
+	//main menu
+	{
+		BaseObject* TitleText = new BaseObject("title text", 350, 75, 0);
+		TitleText->AddComponent(new Text("assets/DejaVuSans.ttf", 100, TitleText, "Game Engine Game", { 255,255,255 }));
 
-	EventManager* eventManager = EventManager::GetInstance();
+		BaseObject* playButton = new BaseObject("play button", 550, 275, 0);
+		playButton->AddComponent(new Sprite("assets/ButtonBackground.bmp", playButton, 0));
+		playButton->AddComponent(new Text("assets/DejaVuSans.ttf", 100, playButton, "PLAY", { 0,0,0 }, {125,50}));
+		playButton->AddComponent(new PlayButton(playButton));
 
-	
+		BaseObject* quitButton = new BaseObject("quit button", 550, 550, 0);
+		quitButton->AddComponent(new Sprite("assets/ButtonBackground.bmp", quitButton, 0));
+		quitButton->AddComponent(new Text("assets/DejaVuSans.ttf", 100, quitButton, "QUIT", { 0,0,0 }, {125,50}));
+		quitButton->AddComponent(new QuitButton(quitButton));
+	}
 
-	
-	BaseObject* camera = new BaseObject("Camera", ScreenWidth/2, ScreenHeight/2);
-	camera->AddComponent(new CameraMovement(camera, true, false));
+	//level 1
+	{
+		BaseObject* camera = new BaseObject("Camera", ScreenWidth / 2, ScreenHeight / 2, 1);
+		camera->AddComponent(new CameraMovement(camera, true, false));
 
-	BaseObject* player = new BaseObject("player", 10, ScreenHeight - 124);
-	player->AddComponent(new Sprite("assets/monsterTrans.bmp", player, 2, true));
-	player->AddComponent(new Physics(player, DYNAMIC, COLLIDE));
-	player->AddComponent(new Player(player));
-	eventManager->AddListener("Left", player);
-	eventManager->AddListener("Right", player);
-	eventManager->AddListener("Up", player);
+		BaseObject* player = new BaseObject("player", 10, ScreenHeight - 124, 1);
+		player->AddComponent(new Sprite("assets/Alien.bmp", player, 2, true));
+		player->AddComponent(new Physics(player, DYNAMIC, COLLIDE));
+		player->AddComponent(new Player(player));
 
-	((Transform*)camera->GetComponent(TRANSFORM))->SetPosition(((Physics*)player->GetComponent(PHYSICS))->GetCentre().x, ScreenHeight / 2);
-	camera->SetParent(player);
+		((Transform*)camera->GetComponent(TRANSFORM))->SetPosition(((Physics*)player->GetComponent(PHYSICS))->GetCentre().x, ScreenHeight / 2);
+		camera->SetParent(player);
 
-	BaseObject* startCheckpoint = new BaseObject("start checkpoint", 10, ScreenHeight - 124);
-	startCheckpoint->AddComponent(new Sprite("assets/checkpoint.bmp", startCheckpoint, 0));
-	startCheckpoint->AddComponent(new Physics(startCheckpoint, STATIC, OVERLAP));
-	startCheckpoint->AddTag("Checkpoint");
+		BaseObject* startCheckpoint = new BaseObject("start checkpoint", 10, ScreenHeight - 124, 1);
+		startCheckpoint->AddComponent(new Sprite("assets/checkpoint.bmp", startCheckpoint, 0, true));
+		startCheckpoint->AddComponent(new Physics(startCheckpoint, STATIC, OVERLAP));
+		startCheckpoint->AddTag("Checkpoint");
 
-	BaseObject* key = new BaseObject("key", 2085, 280);
-	key->AddComponent(new Sprite("assets/key.bmp", key, 5, true));
-	key->AddComponent(new Physics(key, STATIC, OVERLAP));
-	key->AddTag("Key");
+		BaseObject* endDoor = new BaseObject("End Door", ScreenWidth * 2 - 130, ScreenHeight - 200, 1);
+		endDoor->AddComponent(new Sprite("assets/Door.bmp", endDoor, -1, true));
+		endDoor->AddComponent(new Physics(endDoor, STATIC, OVERLAP));
+		endDoor->AddTag("EndDoor");
 
-	BaseObject* floor = new BaseObject("floor", 0, ScreenHeight-10);
-	floor->AddComponent(new Sprite("assets/floor.bmp", floor, 1, true));
-	floor->AddComponent(new Physics(floor));
-	floor->AddTag("Platform");
+		BaseObject* key = new BaseObject("key", 2085, 280, 1);
+		key->AddComponent(new Sprite("assets/key.bmp", key, 5, true));
+		key->AddComponent(new Physics(key, STATIC, OVERLAP));
+		key->AddTag("Key");
 
-	BaseObject* floor2 = new BaseObject("floor", ScreenWidth, ScreenHeight - 10);
-	floor2->AddComponent(new Sprite("assets/floor.bmp", floor2, 1, true));
-	floor2->AddComponent(new Physics(floor2));
-	floor2->AddTag("Platform");
+		BaseObject* floor = new BaseObject("floor", 0, ScreenHeight - 10, 1);
+		floor->AddComponent(new Sprite("assets/floor.bmp", floor, 1, true));
+		floor->AddComponent(new Physics(floor));
+		floor->AddTag("Platform");
 
-	BaseObject* platform1 = new BaseObject("platform1", 525, 700);
-	platform1->AddComponent(new Sprite("assets/platform.bmp", platform1, 1, true));
-	platform1->AddComponent(new Physics(platform1));
-	platform1->AddTag("Platform");
+		BaseObject* floor2 = new BaseObject("floor", ScreenWidth, ScreenHeight - 10, 1);
+		floor2->AddComponent(new Sprite("assets/floor.bmp", floor2, 1, true));
+		floor2->AddComponent(new Physics(floor2));
+		floor2->AddTag("Platform");
 
-	BaseObject* enemy1 = new BaseObject("monster", 525, ScreenHeight - 130);
-	enemy1->AddComponent(new Sprite("assets/monster.bmp", enemy1, 3));
-	enemy1->AddComponent(new Physics(enemy1, DYNAMIC, COLLIDE));
-	enemy1->AddComponent(new Enemy(enemy1));
+		BaseObject* platform1 = new BaseObject("platform1", 525, 700, 1);
+		platform1->AddComponent(new Sprite("assets/platform.bmp", platform1, 1, true));
+		platform1->AddComponent(new Physics(platform1));
+		platform1->AddTag("Platform");
 
-	BaseObject* platform2 = new BaseObject("platform2", 1250, 525);
-	platform2->AddComponent(new Sprite("assets/platform.bmp", platform2, 1, true));
-	platform2->AddComponent(new Physics(platform2));
-	platform2->AddTag("Platform");
+		BaseObject* enemy1 = new BaseObject("monster", 525, ScreenHeight - 130, 1);
+		enemy1->AddComponent(new Sprite("assets/enemy.bmp", enemy1, 3, true));
+		enemy1->AddComponent(new Physics(enemy1, DYNAMIC, COLLIDE));
+		enemy1->AddComponent(new Enemy(enemy1));
 
-	BaseObject* enemy2 = new BaseObject("monster", 1250, ScreenHeight - 130);
-	enemy2->AddComponent(new Sprite("assets/monster.bmp", enemy2, 3));
-	enemy2->AddComponent(new Physics(enemy2, DYNAMIC, COLLIDE));
-	enemy2->AddComponent(new Enemy(enemy2));
+		BaseObject* platform2 = new BaseObject("platform2", 1250, 525, 1);
+		platform2->AddComponent(new Sprite("assets/platform.bmp", platform2, 1, true));
+		platform2->AddComponent(new Physics(platform2));
+		platform2->AddTag("Platform");
 
-	BaseObject* platform3 = new BaseObject("platform3", 1975, 350);
-	platform3->AddComponent(new Sprite("assets/platform.bmp", platform3, 1, true));
-	platform3->AddComponent(new Physics(platform3));
-	platform3->AddTag("Platform");
+		BaseObject* enemy2 = new BaseObject("monster", 1250, ScreenHeight - 130, 1);
+		enemy2->AddComponent(new Sprite("assets/enemy.bmp", enemy2, 3, true));
+		enemy2->AddComponent(new Physics(enemy2, DYNAMIC, COLLIDE));
+		enemy2->AddComponent(new Enemy(enemy2));
 
-	BaseObject* enemy3 = new BaseObject("monster", 1975, ScreenHeight - 130);
-	enemy3->AddComponent(new Sprite("assets/monster.bmp", enemy3, 3));
-	enemy3->AddComponent(new Physics(enemy3, DYNAMIC, COLLIDE));
-	enemy3->AddComponent(new Enemy(enemy3));
+		BaseObject* platform3 = new BaseObject("platform3", 1975, 350, 1);
+		platform3->AddComponent(new Sprite("assets/platform.bmp", platform3, 1, true));
+		platform3->AddComponent(new Physics(platform3));
+		platform3->AddTag("Platform");
 
-	BaseObject* startWall = new BaseObject("startWall", -90,0);
-	startWall->AddComponent(new Sprite("assets/wall.bmp", startWall, 1));
-	startWall->AddComponent(new Physics(startWall));
-	startWall->AddTag("Platform");
+		BaseObject* enemy3 = new BaseObject("monster", 1975, ScreenHeight - 130, 1);
+		enemy3->AddComponent(new Sprite("assets/enemy.bmp", enemy3, 3, true));
+		enemy3->AddComponent(new Physics(enemy3, DYNAMIC, COLLIDE));
+		enemy3->AddComponent(new Enemy(enemy3));
 
-	BaseObject* endWall = new BaseObject("endWall", ScreenWidth*2-10, 0);
-	endWall->AddComponent(new Sprite("assets/wall.bmp", endWall, 1));
-	endWall->AddComponent(new Physics(endWall));
-	endWall->AddTag("Platform");
+		BaseObject* startWall = new BaseObject("startWall", -90, 0, 1);
+		startWall->AddComponent(new Sprite("assets/wall.bmp", startWall, 1));
+		startWall->AddComponent(new Physics(startWall));
+		startWall->AddTag("Platform");
+
+		BaseObject* endWall = new BaseObject("endWall", ScreenWidth * 2 - 10, 0, 1);
+		endWall->AddComponent(new Sprite("assets/wall.bmp", endWall, 1));
+		endWall->AddComponent(new Physics(endWall));
+		endWall->AddTag("Platform");
+	}
+
+	//main menu
+	{
+		BaseObject* winText = new BaseObject("win text", 425, 75, 2);
+		winText->AddComponent(new Text("assets/DejaVuSans.ttf", 100, winText, "Level Complete", { 255,255,255 }));
+
+		BaseObject* quitButton = new BaseObject("quit button", 550, 550, 2);
+		quitButton->AddComponent(new Sprite("assets/ButtonBackground.bmp", quitButton, 0));
+		quitButton->AddComponent(new Text("assets/DejaVuSans.ttf", 100, quitButton, "QUIT", { 0,0,0 }, { 125,50 }));
+		quitButton->AddComponent(new QuitButton(quitButton));
+	}
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -116,14 +145,12 @@ Game::Game() {
 	ImGui_ImplSDL2_InitForOpenGL(screen->getWindow(), nullptr);
 
 	SearchDirectory();
-	/*m_pSmallFont = resourceManager->LoadFont("assets/DejaVuSans.ttf", 15);
-	m_pBigFont = resourceManager->LoadFont("assets/DejaVuSans.ttf", 50);*/
+
+	BaseObject* temp = new BaseObject("temp", 0, 0, 1);
 }
 
 Game::~Game()
 {
-	TTF_CloseFont(m_pBigFont);
-	TTF_CloseFont(m_pSmallFont);
 
 	if (mainSystem) {
 		mainSystem->~System();
@@ -131,15 +158,13 @@ Game::~Game()
 	}
 };
 
-void Game::Update(void) {
+bool Game::Update(void) {
 	Time::GetInstance()->StartFrame();
 	SDL_RenderClear(m_renderer);
 	ImGui::NewFrame();
 	ImGui_ImplSDL2_NewFrame(screen->getWindow());
 	EventManager::GetInstance()->FireEvents(); //fires all the events of the previous
 
-	//((Transform*)monster->GetComponent(TRANSFORM))->SetPosition(((Transform*)monster->GetComponent(TRANSFORM))->GetLocalPosition() + Vector2f(0.1, 0));
-	//((Physics*)monster->GetComponent(PHYSICS))->AddForce(Vector2f(0.1, 0));
 	updates->Update();
 
 	mainSystem->GetInputManager()->Update();
@@ -184,7 +209,7 @@ void Game::Update(void) {
 
 		ImGui::Begin("Scene Hirarcy", 0);
 		ImGuiTreeNodeFlags nodeFlags = ImGuiTreeNodeFlags_FramePadding | ImGuiTreeNodeFlags_DefaultOpen;
-		ObjectManager::GetInstance()->GetSceneRoot()->DrawHierarchy(nodeFlags);
+		ObjectManager::GetInstance()->GetSceneRoots()[ObjectManager::GetInstance()->currentScene]->DrawHierarchy(nodeFlags);
 		ImGui::End();
 	}
 
@@ -192,25 +217,13 @@ void Game::Update(void) {
 	ImGui::Render();
 	ImGuiSDL::Render(ImGui::GetDrawData());
 
-	/*UpdateText("Small Red", 50, 10, m_pSmallFont, { 255,0,0 });
-	UpdateText("Small Blue", 50, 40, m_pSmallFont, { 0,0,255 });
-
-	char char_array[] = "Big White";
-	UpdateText(char_array, 50, 140, m_pBigFont, { 255,255,255 });
-
-	string myString = "Big Green";
-	UpdateText(myString, 50, 70, m_pBigFont, { 0,255,0 });
-
-	int testNumber = 1234;
-	string testString = "Test Number: ";
-	testString += to_string(testNumber);
-	UpdateText(testString, 50, 210, m_pBigFont, { 255,255,255 });*/
-
 	SDL_RenderPresent(m_renderer);
 	Delay(16);
 	int i = 0;
 	Time::GetInstance()->EndFrame();
 	frames.pushFrame(Time::GetInstance()->GetDeltaTime());
+
+	return quit;
 }
 
 void Game::Delay(Uint32 ms) {
@@ -251,34 +264,3 @@ Game* Game::GetInstance()
 }
 
 
-void Game::UpdateText(string msg, int x, int y, TTF_Font* font, SDL_Color colour) {
-	SDL_Surface* surface = nullptr;
-	SDL_Texture* texture = nullptr;
-
-	int texW = 0;
-	int texH = 0;
-
-	surface = TTF_RenderText_Solid(font, msg.c_str(), colour);
-
-	if (!surface) {
-		printf("SURFACE for font not loaded! \n");
-		printf("%s\n", SDL_GetError());
-	}
-	else {
-		texture = SDL_CreateTextureFromSurface(m_renderer, surface);
-		if (!texture) {
-			printf("SURFACE for font not loaded! \n");
-			printf("%s\n", SDL_GetError());
-		}
-		else {
-			SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
-			SDL_Rect textRect = { x, y, texW, texH };
-			
-			SDL_RenderCopy(m_renderer, texture, NULL, &textRect);
-		}
-	}
-	if (texture)
-		SDL_DestroyTexture(texture);
-	if (surface)
-		SDL_FreeSurface(surface);
-}

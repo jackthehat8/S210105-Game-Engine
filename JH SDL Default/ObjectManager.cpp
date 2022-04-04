@@ -1,14 +1,11 @@
 #include "ObjectManager.h"
-
 #include <iostream>
 #include "BaseObject.h"
-
 #include "Game.h"
-
+#include "Quit.h"
 #include "Sprite.h"
 
 ObjectManager* ObjectManager::instance = NULL;
-BaseObject* ObjectManager::sceneRoot = new BaseObject("Scene Root");
 
 ObjectManager::ObjectManager()
 {
@@ -188,4 +185,11 @@ const char* ObjectManager::ComponentTypeToString(ComponentType type)
         return "PHYSICS";
     }
     return "";
+}
+
+void ObjectManager::AddSceneRoot()
+{
+    BaseObject* newSceneRoot = new BaseObject("Scene Root");
+    newSceneRoot->AddComponent(new Quit(newSceneRoot));
+    sceneRoots.push_back(newSceneRoot);
 }
