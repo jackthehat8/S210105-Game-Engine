@@ -64,13 +64,6 @@ private:
 
 	ResourceManager* resourceManager;
 
-	BaseObject* monster;
-	BaseObject* monsterTrans;
-	BaseObject* monsterTransKeyed;
-	BaseObject* floor;
-	BaseObject* startWall;
-	BaseObject* endWall;
-
 	TTF_Font* m_pSmallFont;
 	TTF_Font* m_pBigFont;
 

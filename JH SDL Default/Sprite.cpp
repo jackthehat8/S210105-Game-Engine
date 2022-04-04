@@ -39,7 +39,8 @@ Sprite::Sprite(const char* fileName, BaseObject* owner_, int renderLayer_, bool 
 
 void Sprite::Update()
 {
-	Draw();
+	if(visable)
+		Draw();
 }
 
 

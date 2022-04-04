@@ -17,6 +17,9 @@ public:
     int GetHeight() { return height; }
     SDL_Texture* GetTexture() { return texture; }
 
+    bool GetVisability() { return visable; }
+    void SetVisability(bool newVisability) { visable = newVisability; }
+
     void Draw();
 protected:
     SDL_Surface* surface;
@@ -26,6 +29,8 @@ protected:
     int height = 0;
 
     int renderLayer = 0;
+
+    bool visable = true;
  
     SDL_Rect bounds;
 };

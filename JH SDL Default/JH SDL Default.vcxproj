@@ -157,6 +157,7 @@
     <ClCompile Include="BaseComponent.cpp" />
     <ClCompile Include="BaseObject.cpp" />
     <ClCompile Include="CameraMovement.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="BaseObject.h" />
     <ClInclude Include="CameraMovement.h" />
     <ClInclude Include="Constants.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />

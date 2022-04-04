@@ -92,7 +92,8 @@ vector <BaseObject*> Physics::CheckForOverlaps(string tag)
 	vector <BaseObject*> overlappingObjects;
 	for (BaseObject* object : ObjectManager::GetInstance()->GetObjects()) {
 		Physics* objPhysics = (Physics*)(object->GetComponent(PHYSICS));
-		if (object == owner || objPhysics == nullptr|| objPhysics->GetOverlapType() == COLLIDE)
+		Sprite* objSprite = (Sprite*)(object->GetComponent(SPRITE));
+		if (object == owner || objPhysics == nullptr || objSprite == nullptr || objPhysics->GetOverlapType() == COLLIDE || !objSprite->GetVisability())
 			continue;
 
 		objPhysics->UpdateColliderBounds();
@@ -121,7 +122,8 @@ vector<BaseObject*> Physics::CheckForCollisions(string tag)
 	vector <BaseObject*> collidingObjects;
 	for (BaseObject* object : ObjectManager::GetInstance()->GetObjects()) {
 		Physics* objPhysics = (Physics*)(object->GetComponent(PHYSICS));
-		if (object == owner || objPhysics == nullptr || objPhysics->GetOverlapType() == OVERLAP)
+		Sprite* objSprite = (Sprite*)(object->GetComponent(SPRITE));
+		if (object == owner || objPhysics == nullptr || objSprite == nullptr || objPhysics->GetOverlapType() == OVERLAP || !objSprite->GetVisability())
 			continue;
 
 		objPhysics->UpdateColliderBounds();

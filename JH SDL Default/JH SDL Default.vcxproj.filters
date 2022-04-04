@@ -126,6 +126,9 @@
     <ClCompile Include="ObjectManager.cpp">
       <Filter>Source Files\Engine\System</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files\DemoGame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Events.h">
@@ -210,6 +213,9 @@
       <Filter>Header Files\DemoGame</Filter>
     </ClInclude>
     <ClInclude Include="CameraMovement.h">
+      <Filter>Header Files\DemoGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
       <Filter>Header Files\DemoGame</Filter>
     </ClInclude>
   </ItemGroup>

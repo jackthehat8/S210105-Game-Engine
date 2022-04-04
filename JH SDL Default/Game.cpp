@@ -6,6 +6,7 @@
 #include "CameraMovement.h"
 #include "EventManager.h";
 #include <iostream>
+#include "Enemy.h"
 
 Game* Game::instance = NULL;
 
@@ -23,44 +24,82 @@ Game::Game() {
 
 	EventManager* eventManager = EventManager::GetInstance();
 
-	monster = new BaseObject("monster", 100, 100);
-	monster->AddComponent(new Sprite("assets/monster.bmp", monster, 3));
-	monster->AddComponent(new Physics(monster, DYNAMIC, COLLIDE));
+	
 
-	monsterTrans = new BaseObject("monster purple", 150, 100);
-	monsterTrans->AddComponent(new Sprite("assets/monsterTrans.bmp", monsterTrans, 0));
-
-	monsterTransKeyed = new BaseObject("monster transparent", 125, 50);
-	monsterTransKeyed->AddComponent(new Sprite("assets/monsterTrans.bmp", monsterTransKeyed, 2, true));
-	monsterTransKeyed->AddComponent(new Physics(monsterTransKeyed, DYNAMIC, COLLIDE));
-	monsterTransKeyed->AddComponent(new Player(monsterTransKeyed));
-	eventManager->AddListener("Left", monsterTransKeyed);
-	eventManager->AddListener("Right", monsterTransKeyed);
-	eventManager->AddListener("Up", monsterTransKeyed);
-
-	BaseObject* camera = new BaseObject("Camera", ((Physics*)monsterTransKeyed->GetComponent(PHYSICS))->GetCentre().x, ScreenHeight/2);
+	
+	BaseObject* camera = new BaseObject("Camera", ScreenWidth/2, ScreenHeight/2);
 	camera->AddComponent(new CameraMovement(camera, true, false));
-	camera->SetParent(monsterTransKeyed);
 
-	floor = new BaseObject("floor", 0, ScreenHeight-10);
-	floor->AddComponent(new Sprite("assets/floor.bmp", floor, 1));
+	BaseObject* player = new BaseObject("player", 10, ScreenHeight - 124);
+	player->AddComponent(new Sprite("assets/monsterTrans.bmp", player, 2, true));
+	player->AddComponent(new Physics(player, DYNAMIC, COLLIDE));
+	player->AddComponent(new Player(player));
+	eventManager->AddListener("Left", player);
+	eventManager->AddListener("Right", player);
+	eventManager->AddListener("Up", player);
+
+	((Transform*)camera->GetComponent(TRANSFORM))->SetPosition(((Physics*)player->GetComponent(PHYSICS))->GetCentre().x, ScreenHeight / 2);
+	camera->SetParent(player);
+
+	BaseObject* startCheckpoint = new BaseObject("start checkpoint", 10, ScreenHeight - 124);
+	startCheckpoint->AddComponent(new Sprite("assets/checkpoint.bmp", startCheckpoint, 0));
+	startCheckpoint->AddComponent(new Physics(startCheckpoint, STATIC, OVERLAP));
+	startCheckpoint->AddTag("Checkpoint");
+
+	BaseObject* key = new BaseObject("key", 2085, 280);
+	key->AddComponent(new Sprite("assets/key.bmp", key, 5, true));
+	key->AddComponent(new Physics(key, STATIC, OVERLAP));
+	key->AddTag("Key");
+
+	BaseObject* floor = new BaseObject("floor", 0, ScreenHeight-10);
+	floor->AddComponent(new Sprite("assets/floor.bmp", floor, 1, true));
 	floor->AddComponent(new Physics(floor));
 	floor->AddTag("Platform");
 
-	startWall = new BaseObject("startWall", -90,0);
+	BaseObject* floor2 = new BaseObject("floor", ScreenWidth, ScreenHeight - 10);
+	floor2->AddComponent(new Sprite("assets/floor.bmp", floor2, 1, true));
+	floor2->AddComponent(new Physics(floor2));
+	floor2->AddTag("Platform");
+
+	BaseObject* platform1 = new BaseObject("platform1", 525, 700);
+	platform1->AddComponent(new Sprite("assets/platform.bmp", platform1, 1, true));
+	platform1->AddComponent(new Physics(platform1));
+	platform1->AddTag("Platform");
+
+	BaseObject* enemy1 = new BaseObject("monster", 525, ScreenHeight - 130);
+	enemy1->AddComponent(new Sprite("assets/monster.bmp", enemy1, 3));
+	enemy1->AddComponent(new Physics(enemy1, DYNAMIC, COLLIDE));
+	enemy1->AddComponent(new Enemy(enemy1));
+
+	BaseObject* platform2 = new BaseObject("platform2", 1250, 525);
+	platform2->AddComponent(new Sprite("assets/platform.bmp", platform2, 1, true));
+	platform2->AddComponent(new Physics(platform2));
+	platform2->AddTag("Platform");
+
+	BaseObject* enemy2 = new BaseObject("monster", 1250, ScreenHeight - 130);
+	enemy2->AddComponent(new Sprite("assets/monster.bmp", enemy2, 3));
+	enemy2->AddComponent(new Physics(enemy2, DYNAMIC, COLLIDE));
+	enemy2->AddComponent(new Enemy(enemy2));
+
+	BaseObject* platform3 = new BaseObject("platform3", 1975, 350);
+	platform3->AddComponent(new Sprite("assets/platform.bmp", platform3, 1, true));
+	platform3->AddComponent(new Physics(platform3));
+	platform3->AddTag("Platform");
+
+	BaseObject* enemy3 = new BaseObject("monster", 1975, ScreenHeight - 130);
+	enemy3->AddComponent(new Sprite("assets/monster.bmp", enemy3, 3));
+	enemy3->AddComponent(new Physics(enemy3, DYNAMIC, COLLIDE));
+	enemy3->AddComponent(new Enemy(enemy3));
+
+	BaseObject* startWall = new BaseObject("startWall", -90,0);
 	startWall->AddComponent(new Sprite("assets/wall.bmp", startWall, 1));
 	startWall->AddComponent(new Physics(startWall));
 	startWall->AddTag("Platform");
 
-	endWall = new BaseObject("endWall", ScreenWidth-10, 0);
+	BaseObject* endWall = new BaseObject("endWall", ScreenWidth*2-10, 0);
 	endWall->AddComponent(new Sprite("assets/wall.bmp", endWall, 1));
 	endWall->AddComponent(new Physics(endWall));
 	endWall->AddTag("Platform");
-
-
-
-	//Transform* temp = (Transform*)monsterTrans->GetComponent(TRANSFORM);
-	monsterTrans->SetParent(monster);
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -86,15 +125,6 @@ Game::~Game()
 	TTF_CloseFont(m_pBigFont);
 	TTF_CloseFont(m_pSmallFont);
 
-	if (monsterTransKeyed) {
-		delete monsterTransKeyed;
-	}
-	if (monsterTrans) {
-		delete monsterTrans;
-	}
-	if (monster) {
-		delete monster;
-	}
 	if (mainSystem) {
 		mainSystem->~System();
 		delete screen;
