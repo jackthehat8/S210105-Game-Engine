@@ -1,8 +1,7 @@
 #include "Sprite.h"
 #include "Vector.h"
 #include "Transform.h"
-#include "ScreenManager.h"
-#include "ResourceManager.h"
+#include "Game.h"
 
 Sprite::Sprite(const char* fileName, BaseObject* owner_, int renderLayer_, bool useTransparency)
 {
@@ -58,9 +57,11 @@ void Sprite::Draw()
 		Vector2f temp = transform->GetGlobalPos();
 		SDL_Rect destRect = { temp.x,temp.y,surface->w,surface->h };
 		SDL_RenderCopy(ScreenManager::GetInstance()->getRenderer(), texture, NULL, &destRect);
-		SDL_SetRenderDrawColor(ScreenManager::GetInstance()->getRenderer(), 255, 0, 0, 255);
-		SDL_RenderDrawRect(ScreenManager::GetInstance()->getRenderer(), &destRect);
-		SDL_SetRenderDrawColor(ScreenManager::GetInstance()->getRenderer(), 50, 50, 50, 255);
+		if (Game::GetInstance()->getGUIVisable()) {
+			SDL_SetRenderDrawColor(ScreenManager::GetInstance()->getRenderer(), 255, 0, 0, 255);
+			SDL_RenderDrawRect(ScreenManager::GetInstance()->getRenderer(), &destRect);
+			SDL_SetRenderDrawColor(ScreenManager::GetInstance()->getRenderer(), 50, 50, 50, 255);
+		}
 	}
 	
 }

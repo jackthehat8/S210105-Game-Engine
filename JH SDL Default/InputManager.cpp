@@ -37,13 +37,13 @@ void Input::Update() {
 		{
 			ImGui::GetIO().AddInputCharactersUTF8(m_event.text.text); //used for keyinput for imgui
 		}
+		//end of referenced code
 		else if (m_event.type == SDL_MOUSEBUTTONDOWN && m_event.button.button == SDL_BUTTON_LEFT) {
 			int x;
 			int y;
 			SDL_GetMouseState(&x, &y);
 			eventManager->QueueEvent(new LMBInput(true, x, y));
 		}
-		//end of referenced code
 		else if (m_event.type == SDL_KEYDOWN) {
 			SDL_Keycode keyPressed = m_event.key.keysym.sym;
 			

@@ -16,6 +16,8 @@ public:
 
     void Update();
 
+    void DrawGUI();
+
 private:
     string message;
 

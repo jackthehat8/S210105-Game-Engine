@@ -169,6 +169,7 @@
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="PlayButton.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Profiler.cpp" />
     <ClCompile Include="Quit.cpp" />
     <ClCompile Include="QuitButton.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
@@ -205,6 +206,7 @@
     <ClInclude Include="Physics.h" />
     <ClInclude Include="PlayButton.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Profiler.h" />
     <ClInclude Include="Quit.h" />
     <ClInclude Include="QuitButton.h" />
     <ClInclude Include="ResourceManager.h" />

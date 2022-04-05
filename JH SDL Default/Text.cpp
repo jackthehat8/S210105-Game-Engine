@@ -49,3 +49,8 @@ void Text::Update()
 {
 	UpdateText(message, ((Transform*)owner->GetComponent(TRANSFORM))->GetGlobalPos() + offset, font, colour);
 }
+
+void Text::DrawGUI()
+{
+	ImGui::Text(("Message: " + message).c_str());
+}

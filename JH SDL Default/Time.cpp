@@ -12,8 +12,8 @@ Time* Time::GetInstance()
 
 void Time::EndFrame()
 {
-	frameEnd = steady_clock::now();
-	deltaTime = duration_cast<milliseconds>(frameEnd - frameStart).count();
+	frameEnd = clock();
+	deltaTime = 1000*(frameEnd - frameStart)/CLOCKS_PER_SEC;
 	deltaTime /= 1000; //converts to seconds from milliseconds
 	if (deltaTime > 1)
 		deltaTime = 1;

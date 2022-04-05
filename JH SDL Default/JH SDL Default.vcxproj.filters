@@ -141,10 +141,13 @@
     <ClCompile Include="Text.cpp">
       <Filter>Source Files\Engine\Objects\Components</Filter>
     </ClCompile>
-    <ClCompile Include="PlayButton.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="QuitButton.cpp">
+      <Filter>Source Files\DemoGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Profiler.cpp">
+      <Filter>Source Files\Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayButton.cpp">
       <Filter>Source Files\DemoGame</Filter>
     </ClCompile>
   </ItemGroup>
@@ -253,6 +256,9 @@
     </ClInclude>
     <ClInclude Include="PlayButton.h">
       <Filter>Header Files\DemoGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Profiler.h">
+      <Filter>Header Files\Engine\System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

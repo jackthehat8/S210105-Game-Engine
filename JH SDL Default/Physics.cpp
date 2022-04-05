@@ -148,6 +148,21 @@ vector<BaseObject*> Physics::CheckForCollisions(string tag)
 
 void Physics::DrawGui()
 {
+	ImGui::Text(("Forces: X: " + to_string(forces.x) + " Y: " + to_string(forces.y)).c_str());
+
+	ImGui::Text("Physics Type");
+	ImGui::SameLine();
+	if (physType == DYNAMIC)
+		ImGui::Text("Dynamic");
+	else
+		ImGui::Text("Static");
+
+	ImGui::Text("Collision Type: ");
+	ImGui::SameLine(); 
+	if (overlapType == COLLIDE)
+		ImGui::Text("Collide");
+	else
+		ImGui::Text("Overlap");
 }
 
 

@@ -1,9 +1,10 @@
 #pragma once
 #include <chrono>
+#include <ctime>
 
 //reference https://www.techiedelight.com/measure-elapsed-time-program-chrono-library/
 
-using namespace std::chrono;
+using namespace std;
 
 class Time
 {
@@ -11,31 +12,31 @@ private:
 
 	static Time* timer;
 	//sorted in ms
-	time_point<steady_clock> gameStart;
-	time_point<steady_clock> frameStart;
-	time_point<steady_clock> frameEnd;
-	time_point<steady_clock> levelStart;
+	clock_t gameStart;
+	clock_t frameStart;
+	clock_t frameEnd;
+	clock_t levelStart;
 	//stored in seconds
 	float deltaTime = 0.0f;
 public:
-	Time() { gameStart = steady_clock::now();};
+	Time() { gameStart = clock();};
 	~Time() { delete this; }
 
 	static Time* GetInstance();
 
-	time_point<steady_clock> GetStartTime() { return gameStart; };
-	time_point<steady_clock> GetFrameStart() { return frameStart; };
-	time_point<steady_clock> GetFrameEnd() { return frameEnd; };
-	time_point<steady_clock> GetLevelStart() { return levelStart; };
+	clock_t GetStartTime() { return gameStart; };
+	clock_t GetFrameStart() { return frameStart; };
+	clock_t GetFrameEnd() { return frameEnd; };
+	clock_t GetLevelStart() { return levelStart; };
 
-	time_point<steady_clock> currentTime() { return steady_clock::now(); }
+	clock_t currentTime() { return clock(); }
 
 	float GetDeltaTime() { return deltaTime; };
-	int GetRunTime() { return duration_cast<microseconds>(steady_clock::now() - gameStart).count(); };
+	float GetRunTime() { return (clock() - gameStart)/CLOCKS_PER_SEC; };
 
-	void StartFrame() { frameStart = steady_clock::now(); };
+	void StartFrame() { frameStart = clock(); };
 	void EndFrame();
-	void LevelStart(){ levelStart = steady_clock::now(); }
+	void LevelStart() { levelStart = clock (); }
 
 	
 

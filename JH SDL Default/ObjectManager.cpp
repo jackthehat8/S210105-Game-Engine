@@ -4,6 +4,7 @@
 #include "Game.h"
 #include "Quit.h"
 #include "Sprite.h"
+#include "Profiler.h"
 
 ObjectManager* ObjectManager::instance = NULL;
 
@@ -82,6 +83,7 @@ void ObjectManager::sortObjects()
         otherUpdates.push_back(object);
     }
     objects = otherUpdates;
+
 }
 
 std::vector<BaseObject*> ObjectManager::QuickSort(std::vector<BaseObject*> input, int first, int last)
@@ -126,38 +128,49 @@ std::vector<BaseObject*> ObjectManager::QuickSort(std::vector<BaseObject*> input
 /// </summary>
 void ObjectManager::Update()
 {
+    profileSample* update = new profileSample("Update Objects");
 
+    profileSample* preRender = new profileSample("PreRender");
 	for (int i = 0; i < objects.size(); i++)
 	{
 		objects[i]->PreRender();
 	}
+    preRender->EndSample();
 
+    profileSample* render = new profileSample("Render");
     sortObjects();
 
     for (int i = 0; i < objects.size(); i++)
     {
         objects[i]->Render();
     }
+    render->EndSample();
 
+    profileSample* postRender = new profileSample("Update Objects");
     for (int i = 0; i < objects.size(); i++)
     {
         objects[i]->PostRender();
     }
+    postRender->EndSample();
 
+    profileSample* objIMGUI = new profileSample("Object IMGUI");
     //imgui display
+    if (Game::GetInstance()->getGUIVisable()) {
+        for (int i = 0; i < objects.size(); i++)
+        {
+            if (objects[i]->GetComponent(SPRITE) != nullptr && ((Sprite*)objects[i]->GetComponent(SPRITE))->CheckClicked())
+                break;
+        }
 
-    for (int i = 0; i < objects.size(); i++)
-    {
-        if (objects[i]->GetComponent(SPRITE) != nullptr && ((Sprite*)objects[i]->GetComponent(SPRITE))->CheckClicked())
-            break;
+        if (instance->selectedObject != nullptr)
+            instance->selectedObject->DrawGui();
+        if (!ImGui::GetIO().MouseDown[0])
+            instance->heldObject = nullptr;
+        if (instance->heldObject != nullptr)
+            instance->heldObject->OnMouseHeld();
     }
-
-    if (instance->selectedObject != nullptr && Game::GetInstance()->getGUIVisable())
-        instance->selectedObject->DrawGui();
-    if (!ImGui::GetIO().MouseDown[0])
-        instance->heldObject = nullptr;
-    if (instance->heldObject != nullptr)
-        instance->heldObject->OnMouseHeld();
+    objIMGUI->EndSample();
+    update->EndSample();
 }
 
 void ObjectManager::AddObject(BaseObject* object)

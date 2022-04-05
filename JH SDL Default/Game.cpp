@@ -10,6 +10,7 @@
 #include "Text.h"
 #include "QuitButton.h"
 #include "PlayButton.h"
+#include "Profiler.h"
 
 Game* Game::instance = NULL;
 
@@ -160,16 +161,23 @@ Game::~Game()
 
 bool Game::Update(void) {
 	Time::GetInstance()->StartFrame();
+	Profiler::GetInstance()->StartFrame();
 	SDL_RenderClear(m_renderer);
 	ImGui::NewFrame();
 	ImGui_ImplSDL2_NewFrame(screen->getWindow());
+
+	profileSample* input = new profileSample("poll inputs");
+	mainSystem->GetInputManager()->Update();
+	input->EndSample();
+
+	profileSample* events = new profileSample("fire events");
 	EventManager::GetInstance()->FireEvents(); //fires all the events of the previous
+	events->EndSample();
 
 	updates->Update();
 
-	mainSystem->GetInputManager()->Update();
-
-	ImGui::Begin("Hide Gui");
+	profileSample* ImguiSample = new profileSample("Imgui");
+	ImGui::Begin("Show Tools");
 	ImGui::Checkbox("", &GUIVisable);
 	ImGui::End();
 
@@ -215,11 +223,15 @@ bool Game::Update(void) {
 
 	ImGui::EndFrame();
 	ImGui::Render();
+	ImGui::UpdatePlatformWindows();
+	ImGui::RenderPlatformWindowsDefault();
 	ImGuiSDL::Render(ImGui::GetDrawData());
+	ImguiSample->EndSample();
 
 	SDL_RenderPresent(m_renderer);
 	Delay(16);
 	int i = 0;
+	Profiler::GetInstance()->EndFrame();
 	Time::GetInstance()->EndFrame();
 	frames.pushFrame(Time::GetInstance()->GetDeltaTime());
 
