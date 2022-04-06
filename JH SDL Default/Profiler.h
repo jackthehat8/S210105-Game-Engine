@@ -3,6 +3,11 @@
 #include <string>
 #include <vector>
 
+#include <imgui.h>
+#include <backends/imgui_impl_sdl.h>
+#include <imgui_sdl.h>
+#include <imgui_internal.h>
+
 
 using namespace std;
 
@@ -27,35 +32,34 @@ private:
 
 	bool liveFrameGraph = true;
 	int selectedFrame = 0;
+	int frameOffset = 0;
 };
 
 struct profileSample
 {
 	string name;
-	clock_t startTime;
-	clock_t endTime;
-	int timeDifference;
+	int startTime;
+	int endTime;
+	int sampleDuration;
 	profileSample* parent;
 	vector<profileSample*> subSamples;
 
 	profileSample(string name_) {
 		name = name_;
-		startTime = Time::GetInstance()->currentTime();
+		startTime = 1000 * (Time::GetInstance()->currentTime())/CLOCKS_PER_SEC;
 		parent = Profiler::GetInstance()->GetCurrentSample();
 		if (parent != nullptr)
 			parent->subSamples.push_back(this);
-	}
-
-	void GetFrameData(vector<int> &data) {
-		data.push_back(timeDifference);
-		for (auto subSample : subSamples) {
-			GetFrameData(data);
-		}
+		Profiler::GetInstance()->SetCurrentSample(this);
 	}
 
 	void EndSample() {
-		endTime = Time::GetInstance()->currentTime();
-		timeDifference = 1000*(endTime - startTime)/CLOCKS_PER_SEC;
+		endTime = (1000 * (Time::GetInstance()->currentTime())) / CLOCKS_PER_SEC;
+		sampleDuration = endTime - startTime;
 		Profiler::GetInstance()->SetCurrentSample(parent);
 	}
+
+	ImDrawList* DrawSample(profileSample* root, const ImVec2 startPos, ImVec2 canvasRegion, ImDrawList* drawlist, int depth = 0);
+
+	
 };

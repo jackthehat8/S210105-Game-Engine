@@ -174,11 +174,24 @@ bool Game::Update(void) {
 	EventManager::GetInstance()->FireEvents(); //fires all the events of the previous
 	events->EndSample();
 
+	if (GUIVisable)
+		ImGui::Begin("Inspector");
 	updates->Update();
+	if (GUIVisable)
+		ImGui::End();
 
 	profileSample* ImguiSample = new profileSample("Imgui");
-	ImGui::Begin("Show Tools");
-	ImGui::Checkbox("", &GUIVisable);
+	ImGui::Begin("Show Tools", 0, ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
+	if (GUIVisable) {
+		if (ImGui::Button("Hide Tools")) {
+			GUIVisable = false;
+		}
+	}
+	else {
+		if (ImGui::Button("Show Tools")) {
+			GUIVisable = true;
+		}
+	}
 	ImGui::End();
 
 	if (GUIVisable)
@@ -186,12 +199,18 @@ bool Game::Update(void) {
 		ImGui::ShowDemoWindow(nullptr);
 
 		ImGui::Begin("Performance");
-		if (ImGui::TreeNode("Frame Rate")) {
-			float* queueTemp = &frames.queue[0];
-			ImGui::PlotLines("", queueTemp, frames.queue.size(), 1.0f, "", 0.0f, 0.2f, ImVec2(0, 80.0f));
-			char buffer[40];
-			snprintf(buffer, sizeof(buffer), "Average Frames: %F seconds", frames.GetAverage());
-			ImGui::Text(buffer);
+		if (ImGui::TreeNodeEx("Frame Rate", ImGuiTreeNodeFlags_DefaultOpen)) {
+			if (frames.queue.size() > 0) {
+				float* queueTemp = &frames.queue[0];
+				ImGui::PlotLines("", queueTemp, frames.queue.size(), 1.0f, "", 0.0f, 0.2f, ImVec2(0, 80.0f));
+				char buffer[40];
+				snprintf(buffer, sizeof(buffer), "Average Frames: %F seconds", frames.GetAverage());
+				ImGui::Text(buffer);
+			}
+				ImGui::TreePop();
+		}
+		if (ImGui::TreeNodeEx("Flame Graph", ImGuiTreeNodeFlags_DefaultOpen)) {
+			Profiler::GetInstance()->DrawGUI();
 			ImGui::TreePop();
 		}
 		ImGui::End();
@@ -208,7 +227,7 @@ bool Game::Update(void) {
 			ImGui::ImageButton((ImTextureID)directoryContent[i]->sprite->GetTexture(), { 100,100 });
 
 			ImGui::PopID();
-			if ((i + 1) % 5 != 0)
+			if ((i + 1) % 8 != 0)
 				ImGui::SameLine();
 		}
 		ImGui::EndChild();

@@ -133,7 +133,7 @@ void BaseObject::PostRender()
 
 void BaseObject::DrawGui()
 {
-	ImGui::Begin("Inspector");
+	
 	ImGui::Text("Name"); ImGui::SameLine();
 	ImGui::InputText("    ", name, IM_ARRAYSIZE(name));
 
@@ -141,8 +141,6 @@ void BaseObject::DrawGui()
 		if(component != nullptr)
 			component->DrawGui();
 	}
-
-	ImGui::End();
 	
 }
 
