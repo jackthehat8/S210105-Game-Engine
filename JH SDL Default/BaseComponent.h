@@ -9,12 +9,12 @@ class BaseComponent
 {
 public:
 	/// used to call Update in components
-	virtual void Update();
+	virtual void Update() {};
 	///used to call DrawGui in components
-	virtual void DrawGui();
+	virtual void DrawGui() {};
 
 	/// used to call HandleEvent in components
-	virtual void HandleEvent(BaseEvent* event);
+	virtual void HandleEvent(BaseEvent* event) {};
 
 	/// gets the BaseObject that owns the component
 	BaseObject* GetOwner() { return owner; }

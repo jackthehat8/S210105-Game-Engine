@@ -70,6 +70,8 @@ void ObjectManager::SetHeldObject(BaseObject* object)
 
 void ObjectManager::sortObjects()
 {
+    //sorts objects that have a render layer from Sprite
+    //any other object is put onto the end of the update vector
     vector<BaseObject*> spriteUpdates;
     vector<BaseObject*> otherUpdates;
     for (BaseObject* object : objects) {
@@ -128,6 +130,7 @@ std::vector<BaseObject*> ObjectManager::QuickSort(std::vector<BaseObject*> input
 /// </summary>
 void ObjectManager::Update()
 {
+    //runs preRender, render and postRender of each object
     profileSample* update = new profileSample("Update Objects");
 
     profileSample* preRender = new profileSample("PreRender");
@@ -182,6 +185,7 @@ void ObjectManager::AddObject(BaseObject* object)
 
 const char* ObjectManager::ComponentTypeToString(ComponentType type)
 {
+    //converts the component type to a string
     switch (type) {
     case TRANSFORM:
         return "TRANSFORM";
@@ -197,6 +201,7 @@ const char* ObjectManager::ComponentTypeToString(ComponentType type)
 
 void ObjectManager::AddSceneRoot()
 {
+    //creats a new scene root and pushes it back to Scene Root
     BaseObject* newSceneRoot = new BaseObject("Scene Root");
     newSceneRoot->AddComponent(new Quit(newSceneRoot));
     sceneRoots.push_back(newSceneRoot);

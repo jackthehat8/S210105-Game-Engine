@@ -6,20 +6,8 @@ ResourceManager::ResourceManager() {
 };
 
 ResourceManager::~ResourceManager() {
-	//code from https://stackoverflow.com/questions/110157/how-to-retrieve-all-keys-or-values-from-a-stdmap-and-put-them-into-a-vector
-	//removes the sdl_surface object from the heap
-	/*for (map<string, SDL_Surface*>::iterator i = imageFiles.begin(); i!=imageFiles.end(); ++i)
-	{
-		delete (i->second);
-	}*/
 	imageFiles.clear();
-
-	/*for (map<string, TTF_Font*>::iterator i = fontFiles.begin(); i != fontFiles.end(); ++i)
-	{
-		delete (i->second);
-	}*/
 	fontFiles.clear();
-	//end reference
 }
 
 ResourceManager* ResourceManager::GetInstance()

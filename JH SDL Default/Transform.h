@@ -10,6 +10,11 @@ public:
     /// <param name="x"> the x position</param>
     /// <param name="y"> the y position </param>
     /// <param name="owner_"> the BaseObject that the component is on</param>
+    /// Example
+    /// ~~~~~.cpp
+    /// BaseObject* tempObject = new BaseObject("temp", 550, 275, 0);
+    /// tempObject->AddComponent(new Text("assets/temp.ttf", 100, tempObject, "this is a temporary message", { 0,0,0 }, { 125,50 }));
+    /// ~~~~~
     Transform(int x, int y, BaseObject* owner_) { Transform(Vector2f(x, y), owner_); }
 
     /// This sets the positon and owner of the BaseObject

@@ -16,17 +16,14 @@ Game* Game::instance = NULL;
 
 Game::Game() {
 	instance = this;
+	//create a main system (this makes sure one has created)
 	System* mainSystem = System::GetInstance();
 
 	ScreenManager* screen = mainSystem->GetScreenManager();
-	SDL_Window* m_window = screen->getWindow();
-	SDL_Renderer* m_renderer = screen->getRenderer();
-	ObjectManager* updates = mainSystem->GetObjectManager();
-
-	ResourceManager* resourceManager = mainSystem->GetResourceManager();
 	
 	LoadLevels();
 
+	//initalise imgui
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 
@@ -46,27 +43,33 @@ Game::Game() {
 
 Game::~Game()
 {
+	//system will close all other singletons
 	System::GetInstance()->~System();
-
 };
 
 bool Game::Update() {
+	//starts the frame for the timer and the profiler
 	Time::GetInstance()->StartFrame();
 	Profiler::GetInstance()->StartFrame();
+	//clears the last screen
 	SDL_RenderClear(ScreenManager::GetInstance()->getRenderer());
+	//starts a new frame of imgui
 	ImGui::NewFrame();
 	ImGui_ImplSDL2_NewFrame(ScreenManager::GetInstance()->getWindow());
 
+	//runs inputs
 	profileSample* input = new profileSample("poll inputs");
 	System::GetInstance()->GetInputManager()->Update();
 	input->EndSample();
 
 	profileSample* events = new profileSample("fire events");
-	EventManager::GetInstance()->FireEvents(); //fires all the events of the previous
+	EventManager::GetInstance()->FireEvents(); //fires all the events of the current frame
 	events->EndSample();
 
+	//updates all objects
 	ObjectManager::GetInstance()->Update();
 
+	//checks if the show tools button has been pressed to make the gui visable or invisable
 	profileSample* ImguiSample = new profileSample("Imgui");
 	ImGui::Begin("Show Tools", 0, ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
 	if (GUIVisable) {
@@ -79,39 +82,42 @@ bool Game::Update() {
 	}
 	ImGui::End();
 
+	//draws tools if set to visable
 	if (GUIVisable)
 	{
-		ImGui::ShowDemoWindow(nullptr);
+		//ImGui::ShowDemoWindow(nullptr);
 		DrawPerformanceWindow();
 		DrawEditorWindow();
 		DrawHierarchyWindow();
 	}
-
+	//ends imgui frame
 	ImGui::EndFrame();
 	ImGui::Render();
 	ImGui::UpdatePlatformWindows();
 	ImGui::RenderPlatformWindowsDefault();
 	ImGuiSDL::Render(ImGui::GetDrawData());
 	ImguiSample->EndSample();
-
+	//renders frame
 	SDL_RenderPresent(ScreenManager::GetInstance()->getRenderer());
-	SDL_Delay(16);
-	int i = 0;
+	SDL_Delay(16);//delays
+	//ends fame on profiler and timer
 	Profiler::GetInstance()->EndFrame();
 	Time::GetInstance()->EndFrame();
 	frames.pushFrame(Time::GetInstance()->GetDeltaTime());
 
-	return quit;
+	return quit; //retuns the value of the bool quit (if true will close the loop)
 }
 
 void Game::SearchDirectory()
 {
+	//delete any already found sprites
 	for (IMGUISprite* object : directoryContent)
 	{
 		delete(object);
 	}
-	directoryContent.clear();
+	directoryContent.clear();//clears the vector
 	string DirectoryPath = "assets";
+	//finds every asset in the directory and stores it as an imguiSprite (the fileDirectory and a copy of the surface)
 	for (const auto& entry : filesystem::directory_iterator(DirectoryPath)) {
 		if (entry.path().extension() == ".bmp") {
 			IMGUISprite* Asset = new IMGUISprite(entry.path().string().c_str(), new Sprite(entry.path().string().c_str(), nullptr));
@@ -133,6 +139,9 @@ Game* Game::GetInstance()
 
 void Game::LoadLevels()
 {
+	//this constructs all the baseObjects used in the game
+	
+
 	//main menu
 	{
 		BaseObject* TitleText = new BaseObject("title text", 350, 75, 0);
@@ -242,8 +251,11 @@ void Game::LoadLevels()
 
 void Game::DrawPerformanceWindow()
 {
+	//draws the performace window
 	ImGui::Begin("Performance", 0, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
 	if (ImGui::TreeNodeEx("Frame Rate", ImGuiTreeNodeFlags_DefaultOpen)) {
+		//this takes the last 300 frames and displays them in a graph
+		//this also outputs the average time it took to complete each frame
 		if (frames.queue.size() > 0) {
 			float* queueTemp = &frames.queue[0];
 			ImGui::PlotLines("", queueTemp, frames.queue.size(), 1.0f, "", 0.0f, 0.2f, ImVec2(0, 80.0f));
@@ -254,7 +266,7 @@ void Game::DrawPerformanceWindow()
 		ImGui::TreePop();
 	}
 	if (ImGui::TreeNodeEx("Flame Graph", ImGuiTreeNodeFlags_DefaultOpen)) {
-		Profiler::GetInstance()->DrawGUI();
+		Profiler::GetInstance()->DrawGUI();//this calls drawGui in the profiler to make a flame graph
 		ImGui::TreePop();
 	}
 	ImGui::End();
@@ -264,8 +276,9 @@ void Game::DrawEditorWindow()
 {
 	ImGui::Begin("Editor", 0, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
 	if (ImGui::Button("Refresh"))
-		SearchDirectory();
+		SearchDirectory();//allows for updating the asset list if a new item is added while it is running
 
+	//this displays all assets found in the assets folder for the user to be able to drag into the game
 	ImGui::BeginChild("Content Window", ImVec2(), true);
 	for (int i = 0; i < directoryContent.size(); i++)
 	{
@@ -273,6 +286,7 @@ void Game::DrawEditorWindow()
 
 		ImGui::ImageButton((ImTextureID)directoryContent[i]->sprite->GetTexture(), { 100,100 });
 
+		//if item is dragged it is set as the content being dragged and is shown as an image next to the mouse
 		if (ImGui::BeginDragDropSource()) {
 			contentBeingDragged = directoryContent[i];
 			ImGui::Image((ImTextureID)directoryContent[i]->sprite->GetTexture(), { 100,100 });
@@ -284,6 +298,7 @@ void Game::DrawEditorWindow()
 			ImGui::SameLine();
 	}
 
+	//if the item is let go of it is placed into the game at the position of the mouse
 	if (contentBeingDragged != nullptr && ImGui::IsMouseReleased(ImGuiMouseButton_Left)) {
 		int x, y;
 		SDL_GetMouseState(&x, &y);
@@ -298,8 +313,10 @@ void Game::DrawEditorWindow()
 
 void Game::DrawHierarchyWindow()
 {
+	//draws the hierarchy to the screen
 	ImGui::Begin("Scene Hirarcy", 0, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
 	ImGuiTreeNodeFlags nodeFlags = ImGuiTreeNodeFlags_FramePadding | ImGuiTreeNodeFlags_DefaultOpen;
+	//calls drawHierarchy of each object of the current scene
 	ObjectManager::GetInstance()->GetSceneRoots()[ObjectManager::GetInstance()->currentScene]->DrawHierarchy(nodeFlags);
 	ImGui::End();
 }

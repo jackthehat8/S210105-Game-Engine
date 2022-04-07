@@ -26,6 +26,7 @@ void SceneManager::addObjectToScene(BaseObject* object, int sceneNumber)
 
 void SceneManager::setScene(int sceneNumber)
 {
+    //sets the scene to the input number if it exists
     if (sceneNumber < scenes.size()) {
         ObjectManager::GetInstance()->SetScene(scenes[sceneNumber], sceneNumber);
     }

@@ -20,6 +20,12 @@ public:
     /// <param name="colour_">the colour the font should be</param>
     /// <param name="offset_">a possible offset that can be added to centre it on a background if needed
     /// @note this is defaulted to 0,0 </param>
+    ///
+    /// Example
+    /// ~~~~~.cpp
+    /// BaseObject* tempObject = new BaseObject("temp", 550, 275, 0);
+    /// tempObject->AddComponent(new Text("assets/temp.ttf", 100, tempObject, "this is a temporary message", { 0,0,0 }, { 125,50 }));
+    /// ~~~~~
     Text(const char* fileName, int fontSize, BaseObject* owner_, string message_, SDL_Color colour_, Vector2f offset_ = {0,0});
 
     /// allows for the message to be updated

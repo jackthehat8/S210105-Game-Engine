@@ -11,6 +11,7 @@ Transform::Transform(Vector2f pos, BaseObject* owner_)
 
 void Transform::DrawGui()
 {
+	//draws the position of the player
 	if (ImGui::TreeNodeEx("Transform", ImGuiTreeNodeFlags_DefaultOpen)) {
 		static bool showStepButtons = true;
 		const float stepCount = 1.0f;
@@ -25,6 +26,7 @@ void Transform::DrawGui()
 
 Vector2f Transform::GetGlobalPos()
 {
+	//recursivly does the sum of all its parents positions to get its global position
 	if (owner->GetParent() != nullptr)
 		return ((Transform*)owner->GetParent()->GetComponent(TRANSFORM))->GetGlobalPos() + position;
 	else

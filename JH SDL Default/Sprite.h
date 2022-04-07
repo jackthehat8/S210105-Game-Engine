@@ -11,6 +11,12 @@ public:
     /// <param name="renderLayer_">the layer for the sprite to be rendered on</param>
     /// <param name="useTransparency">if the sprite should remove the background 
     /// @note for this to work the background should be the colour {255,255,0,0}</param>
+    /// 
+    /// Example
+    /// ~~~~~.cpp
+    /// BaseObject* tempObject = new BaseObject("temp", 550, 275, 0);
+    /// tempObject->AddComponent(new Sprite("assets/temp.bmp", tempObject, 0, true));
+    /// ~~~~~
     Sprite(const char* fileName, BaseObject* owner_, int renderLayer_ = 0,  bool useTransparency = false );
 
     /// Calls draw

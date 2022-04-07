@@ -154,13 +154,11 @@
     <ClCompile Include="..\Libraries\imgui-master\imgui_tables.cpp" />
     <ClCompile Include="..\Libraries\imgui-master\imgui_widgets.cpp" />
     <ClCompile Include="..\Libraries\imgui_sdl-master\imgui_sdl.cpp" />
-    <ClCompile Include="BaseComponent.cpp" />
     <ClCompile Include="BaseObject.cpp" />
     <ClCompile Include="CameraMovement.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Events.cpp" />
     <ClCompile Include="GUIButton.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
@@ -174,7 +172,6 @@
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="ScreenManager.cpp" />
-    <ClCompile Include="BaseScript.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="System.cpp" />
     <ClCompile Include="Text.cpp" />

@@ -35,6 +35,11 @@ public:
     /// <param name="owner_">the BaseObject that the component is to be added onto</param>
     /// <param name="physType_"> the PhysicsType for the object</param>
     /// <param name="overlapType_">the OverlapType for the object</param>
+    /// Example
+    /// ~~~~~.cpp
+    /// BaseObject* tempObject = new BaseObject("temp", 550, 275, 0);
+    /// tempObject->AddComponent(new Physics(tempObject, DYNAMIC, COLLIDE));
+    /// ~~~~~
     /// @see PhysicsType and OverlapType
     Physics(BaseObject* owner_, PhysicsType physType_ = STATIC, OverlapType overlapType_ = COLLIDE);
 

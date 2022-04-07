@@ -3,5 +3,6 @@
 
 void PlayButton::ButtonPressed()
 {
-	SceneManager::GetInstance()->setScene(1);
+	//move to the next screen
+	SceneManager::GetInstance()->setScene(ObjectManager::GetInstance()->currentScene+ 1);
 }

@@ -73,7 +73,7 @@ private:
 	IMGUISprite* contentBeingDragged = nullptr;
 
 	/// Used to turn the tools on and off
-	bool GUIVisable = true;
+	bool GUIVisable = false;
 
 	/// Used to exit the loop when set to true
 	bool quit = false;
@@ -124,8 +124,14 @@ public:
 	void LoadLevels();
 
 	/// Draws the Performance window and its tool(s)
+	///
+	/// The frame rate of the last 300 frames is displayed them in a graph
+	///	This also outputs the average time it took to complete each frame
+	/// A flame graph is also drawn
 	void DrawPerformanceWindow();
 	/// Draws the Editor window and its tool(s)
+	///
+	/// This displays all assets found in the assets folder for the user to be able to drag into the game
 	void DrawEditorWindow();
 	/// Draws the Hierarchy window and its tool(s)
 	void DrawHierarchyWindow();

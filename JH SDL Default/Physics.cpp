@@ -19,11 +19,13 @@ Physics::Physics(BaseObject* owner_, PhysicsType physType_, OverlapType overlapT
 
 void Physics::UpdateColliderBounds()
 {
+	//gets the transform for position and sprite for sprite bounds
 	Transform* transfrom = (Transform*)(owner->GetComponent(TRANSFORM));
 	Sprite* sprite = (Sprite*)(owner->GetComponent(SPRITE));
 
 	topLeft = transfrom->GetGlobalPos(); //position is from the top left
 
+	//sets the extents of the box
 	left = topLeft.x;
 	top = topLeft.y;
 	float width = sprite->GetWidth();
@@ -31,6 +33,7 @@ void Physics::UpdateColliderBounds()
 	bottom = topLeft.y + sprite->GetHeight();
 	right = topLeft.x + sprite->GetWidth();
 
+	//sets corners based on it
 	topRight = Vector2f(right, top);
 	bottomLeft = Vector2f(left, bottom);
 	bottomRight = Vector2f(right, bottom);
@@ -41,6 +44,7 @@ void Physics::UpdateColliderBounds()
 
 void Physics::Update()
 {
+	//will only try to move collide and move if the item is set to Dymanic
 	if (physType == DYNAMIC) {
 		forces.y = forces.y + gravity * Time::GetInstance()->GetDeltaTime();//add gravity
 
@@ -80,12 +84,6 @@ void Physics::Update()
 	
 }
 
-
-/// <summary>
-///  if tag is set to "" it will return all overlapping objects
-/// </summary>
-/// <param name="tag"></param>
-/// <returns></returns>
 vector <BaseObject*> Physics::CheckForOverlaps(string tag)
 {
 	UpdateColliderBounds();
@@ -93,6 +91,7 @@ vector <BaseObject*> Physics::CheckForOverlaps(string tag)
 	for (BaseObject* object : ObjectManager::GetInstance()->GetObjects()) {
 		Physics* objPhysics = (Physics*)(object->GetComponent(PHYSICS));
 		Sprite* objSprite = (Sprite*)(object->GetComponent(SPRITE));
+		//checks that a physics and sprite are on the object (if not move onto the next item)also check that the object is set to overlap 
 		if (object == owner || objPhysics == nullptr || objSprite == nullptr || objPhysics->GetOverlapType() == COLLIDE || !objSprite->GetVisability())
 			continue;
 
@@ -105,7 +104,7 @@ vector <BaseObject*> Physics::CheckForOverlaps(string tag)
 			overlapping = true;
 
 		if (overlapping) {
-			if (tag != "") {
+			if (tag != "") {//if a tag has been input check that the object has the tag before continue
 				if (object->HasTag(tag))
 					overlappingObjects.push_back(object);
 			}
@@ -123,6 +122,7 @@ vector<BaseObject*> Physics::CheckForCollisions(string tag)
 	for (BaseObject* object : ObjectManager::GetInstance()->GetObjects()) {
 		Physics* objPhysics = (Physics*)(object->GetComponent(PHYSICS));
 		Sprite* objSprite = (Sprite*)(object->GetComponent(SPRITE));
+		//checks that a physics and sprite are on the object (if not move onto the next item) also check that the object is set to collide 
 		if (object == owner || objPhysics == nullptr || objSprite == nullptr || objPhysics->GetOverlapType() == OVERLAP || !objSprite->GetVisability())
 			continue;
 
@@ -135,7 +135,7 @@ vector<BaseObject*> Physics::CheckForCollisions(string tag)
 			overlapping = true;
 
 		if (overlapping) {
-			if (tag != "") {
+			if (tag != "") {//if a tag has been input check that the object has the tag before continue
 				if (object->HasTag(tag))
 					collidingObjects.push_back(object);
 			}
@@ -148,28 +148,36 @@ vector<BaseObject*> Physics::CheckForCollisions(string tag)
 
 void Physics::DrawGui()
 {
-	ImGui::Text(("Forces: X: " + to_string(forces.x) + " Y: " + to_string(forces.y)).c_str());
 
-	ImGui::Text("Physics Type");
-	ImGui::SameLine();
-	if (physType == DYNAMIC)
-		ImGui::Text("Dynamic");
-	else
-		ImGui::Text("Static");
+	//show the forces, physics type and collision type of the object
+	if (ImGui::TreeNodeEx("Physics", ImGuiTreeNodeFlags_DefaultOpen)) {
+		ImGui::Text(("Forces: X: " + to_string(forces.x) + " Y: " + to_string(forces.y)).c_str());
 
-	ImGui::Text("Collision Type: ");
-	ImGui::SameLine(); 
-	if (overlapType == COLLIDE)
-		ImGui::Text("Collide");
-	else
-		ImGui::Text("Overlap");
+		ImGui::Text("Physics Type");
+		ImGui::SameLine();
+		if (physType == DYNAMIC)
+			ImGui::Text("Dynamic");
+		else
+			ImGui::Text("Static");
+
+		ImGui::Text("Collision Type: ");
+		ImGui::SameLine();
+		if (overlapType == COLLIDE)
+			ImGui::Text("Collide");
+		else
+			ImGui::Text("Overlap");
+
+		ImGui::TreePop();
+	}
 }
 
 
 
 void Physics::SetLeft(float value)
 {
+	//sets the left to a value 
 	Transform* transfrom = (Transform*)(owner->GetComponent(TRANSFORM));
+	//this gets the difference between the current left value and where it is getting changed to
 	float change = value + bufferDistance - left;
 	Vector2f currentPos = transfrom->GetLocalPosition();
 	transfrom->SetPosition(currentPos.x + change, currentPos.y);
@@ -177,8 +185,10 @@ void Physics::SetLeft(float value)
 
 void Physics::SetRight(float value)
 {
+	//sets the right to a value 
 	Transform* transfrom = (Transform*)(owner->GetComponent(TRANSFORM));
 	Sprite* sprite = (Sprite*)(owner->GetComponent(SPRITE));
+	//this gets the difference between the current right value and where it is getting changed to
 	float change = value - bufferDistance - right;
 	Vector2f currentPos = transfrom->GetLocalPosition();
 	transfrom->SetPosition(currentPos.x + change, currentPos.y);
@@ -186,7 +196,9 @@ void Physics::SetRight(float value)
 
 void Physics::SetTop(float value)
 {
+	//sets the top to a value 
 	Transform* transfrom = (Transform*)(owner->GetComponent(TRANSFORM));
+	//this gets the difference between the current top value and where it is getting changed to
 	float change = value + bufferDistance - top;
 	Vector2f currentPos = transfrom->GetLocalPosition();
 	transfrom->SetPosition(currentPos.x, currentPos.y + change);
@@ -194,8 +206,10 @@ void Physics::SetTop(float value)
 
 void Physics::SetBottom(float value)
 {
+	//sets the bottom to a value 
 	Transform* transfrom = (Transform*)(owner->GetComponent(TRANSFORM));
 	Sprite* sprite = (Sprite*)(owner->GetComponent(SPRITE));
+	//this gets the difference between the current bottom value and where it is getting changed to
 	float change = value - bufferDistance - bottom;
 	Vector2f currentPos = transfrom->GetLocalPosition();
 	transfrom->SetPosition(currentPos.x, currentPos.y + change);
