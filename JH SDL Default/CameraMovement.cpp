@@ -1,6 +1,6 @@
 #include "CameraMovement.h"
 #include "Transform.h"
-#include "Constants.h"
+#include "Window Constants.h"
 
 CameraMovement::CameraMovement(BaseObject* owner_, bool changeX_, bool changeY_)
 {
@@ -40,8 +40,4 @@ void CameraMovement::Update()
 	sceneRootTransform->SetPosition(sceneRootTransform->GetGlobalPos().x - xChange, sceneRootTransform->GetGlobalPos().y - yChange);
 
 	previousFramePos = ((Transform*)owner->GetComponent(TRANSFORM))->GetGlobalPos();
-}
-
-void CameraMovement::HandleEvent(BaseEvent* event)
-{
 }

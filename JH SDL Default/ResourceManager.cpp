@@ -14,12 +14,6 @@ ResourceManager::~ResourceManager() {
 	}*/
 	imageFiles.clear();
 
-	/*for (map<string, SDL_AudioSpec*>::iterator i = audioFiles.begin(); i != audioFiles.end(); ++i)
-	{
-		delete (i->second);
-	}*/
-	audioFiles.clear();
-
 	/*for (map<string, TTF_Font*>::iterator i = fontFiles.begin(); i != fontFiles.end(); ++i)
 	{
 		delete (i->second);
@@ -73,19 +67,6 @@ TTF_Font* ResourceManager::LoadFont(string fileDirectory, int fontSize)
 	return newFont;
 };
 
-/// <summary>
-/// Loads an audio file (.wav) into the heap or gets a reference to it if it already present.
-/// </summary>
-SDL_AudioSpec* ResourceManager::LoadAudio(string fileDirectory) {
-	SDL_AudioSpec* newAudio = nullptr;
-	Uint8* buf;
-	Uint32 len;
-	if (audioFiles.find(fileDirectory) == audioFiles.end()) {
-		//SDL_LoadWAV(fileDirectory.c_str(), newAudio*, &buf, &len);
-	}
-	return newAudio;
-};
-
 void ResourceManager::UnloadImage(string fileDirectory) {
 	delete(imageFiles.find(fileDirectory)->second);
 	imageFiles.erase(imageFiles.find(fileDirectory));
@@ -95,10 +76,4 @@ void ResourceManager::UnloadFont(string fileDirectory)
 {
 	delete(fontFiles.find(fileDirectory)->second);
 	fontFiles.erase(fontFiles.find(fileDirectory));
-}
-
-void ResourceManager::UnloadAudio(string fileDirectory)
-{
-	delete(audioFiles.find(fileDirectory)->second);
-	audioFiles.erase(audioFiles.find(fileDirectory));
 }

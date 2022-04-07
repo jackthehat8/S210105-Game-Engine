@@ -156,6 +156,7 @@ void ObjectManager::Update()
     profileSample* objIMGUI = new profileSample("Object IMGUI");
     //imgui display
     if (Game::GetInstance()->getGUIVisable()) {
+        ImGui::Begin("Inspector");
         for (int i = 0; i < objects.size(); i++)
         {
             if (objects[i]->GetComponent(SPRITE) != nullptr && ((Sprite*)objects[i]->GetComponent(SPRITE))->CheckClicked())
@@ -168,6 +169,7 @@ void ObjectManager::Update()
             instance->heldObject = nullptr;
         if (instance->heldObject != nullptr)
             instance->heldObject->OnMouseHeld();
+        ImGui::End();
     }
     objIMGUI->EndSample();
     update->EndSample();
@@ -178,11 +180,6 @@ void ObjectManager::AddObject(BaseObject* object)
 	objects.push_back(object);
 }
 
-void ObjectManager::AddRenderer(SDL_Renderer* renderer)
-{
-	m_renderer = renderer;
-}
-
 const char* ObjectManager::ComponentTypeToString(ComponentType type)
 {
     switch (type) {
@@ -190,8 +187,6 @@ const char* ObjectManager::ComponentTypeToString(ComponentType type)
         return "TRANSFORM";
     case SPRITE:
         return"SPRITE";
-    case AUDIO:
-        return "AUDIO";
     case TEXT:
         return "TEXT";
     case PHYSICS:

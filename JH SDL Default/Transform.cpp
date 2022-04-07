@@ -9,12 +9,6 @@ Transform::Transform(Vector2f pos, BaseObject* owner_)
 	type = TRANSFORM;
 }
 
-void Transform::Update()
-{
-}
-
-
-
 void Transform::DrawGui()
 {
 	if (ImGui::TreeNodeEx("Transform", ImGuiTreeNodeFlags_DefaultOpen)) {
@@ -25,8 +19,6 @@ void Transform::DrawGui()
 		ImGui::SameLine(); ImGui::InputFloat("", &position.x, 0.1f, 1.0f);
 		ImGui::Text("Y");
 		ImGui::SameLine(); ImGui::InputFloat(" ", &position.y, 0.1f, 0.0f);
-		//add rotation
-		//add scale
 		ImGui::TreePop();
 	}
 }

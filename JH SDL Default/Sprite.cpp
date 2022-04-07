@@ -29,10 +29,6 @@ Sprite::Sprite(const char* fileName, BaseObject* owner_, int renderLayer_, bool 
 			height = surface->h;
 		}
 	}
-	bounds.x = 0;
-	bounds.y = 0;
-	bounds.w = width;
-	bounds.h = height;
 	
 }
 

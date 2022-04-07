@@ -160,7 +160,6 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Events.cpp" />
     <ClCompile Include="GUIButton.cpp" />
     <ClCompile Include="InputManager.cpp" />
@@ -194,11 +193,10 @@
     <ClInclude Include="BaseComponent.h" />
     <ClInclude Include="BaseObject.h" />
     <ClInclude Include="CameraMovement.h" />
-    <ClInclude Include="Constants.h" />
+    <ClInclude Include="Window Constants.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="GameObject.h" />
     <ClInclude Include="Events.h" />
     <ClInclude Include="GUIButton.h" />
     <ClInclude Include="InputManager.h" />

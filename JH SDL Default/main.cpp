@@ -5,7 +5,7 @@
 #include <backends/imgui_impl_sdl.h>
 #include <imgui_sdl.h>
 #include <imgui_internal.h>
-#include "Constants.h"
+#include "Window Constants.h"
 
 
 /*
@@ -28,8 +28,7 @@ int main(int argc, char* argv[])
 	int g = 50;
 	int b = 50;
 	Game* game = new Game();
-	game->GetScreenManager()->SetDisplayColour(r % 255, g % 255, b % 255, 255);
-
+	ScreenManager::GetInstance()->SetDisplayColour(r % 255, g % 255, b % 255, 255);
 
 	while (!quit&& game) {
 		quit = game->Update();

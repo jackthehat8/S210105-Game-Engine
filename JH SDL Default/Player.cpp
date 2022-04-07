@@ -18,10 +18,6 @@ Player::Player(BaseObject* owner_)
 	eventManager->AddListener("Up", owner);
 }
 
-void Player::jump()
-{
-}
-
 void Player::resetPlayer()
 {
 	health = maxHealth;

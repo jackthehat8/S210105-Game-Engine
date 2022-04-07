@@ -16,15 +16,123 @@ Game* Game::instance = NULL;
 
 Game::Game() {
 	instance = this;
-	mainSystem = System::GetInstance();
+	System* mainSystem = System::GetInstance();
 
-	screen = mainSystem->GetScreenManager();
-	m_window = screen->getWindow();
-	m_renderer = screen->getRenderer();
-	updates = mainSystem->GetObjectManager();
-	updates->AddRenderer(m_renderer);
+	ScreenManager* screen = mainSystem->GetScreenManager();
+	SDL_Window* m_window = screen->getWindow();
+	SDL_Renderer* m_renderer = screen->getRenderer();
+	ObjectManager* updates = mainSystem->GetObjectManager();
 
-	resourceManager = mainSystem->GetResourceManager();
+	ResourceManager* resourceManager = mainSystem->GetResourceManager();
+	
+	LoadLevels();
+
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+
+	ImGuiSDL::Initialize(screen->getRenderer(), ScreenWidth, ScreenHeight);
+
+	ImGuiIO& io = ImGui::GetIO();
+
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+	ImGui::StyleColorsDark();
+
+	ImGui_ImplSDL2_InitForOpenGL(screen->getWindow(), nullptr);
+
+	SearchDirectory();
+}
+
+Game::~Game()
+{
+	System::GetInstance()->~System();
+
+};
+
+bool Game::Update() {
+	Time::GetInstance()->StartFrame();
+	Profiler::GetInstance()->StartFrame();
+	SDL_RenderClear(ScreenManager::GetInstance()->getRenderer());
+	ImGui::NewFrame();
+	ImGui_ImplSDL2_NewFrame(ScreenManager::GetInstance()->getWindow());
+
+	profileSample* input = new profileSample("poll inputs");
+	System::GetInstance()->GetInputManager()->Update();
+	input->EndSample();
+
+	profileSample* events = new profileSample("fire events");
+	EventManager::GetInstance()->FireEvents(); //fires all the events of the previous
+	events->EndSample();
+
+	ObjectManager::GetInstance()->Update();
+
+	profileSample* ImguiSample = new profileSample("Imgui");
+	ImGui::Begin("Show Tools", 0, ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
+	if (GUIVisable) {
+		if (ImGui::Button("Hide Tools"))
+			GUIVisable = false;
+	}
+	else {
+		if (ImGui::Button("Show Tools"))
+			GUIVisable = true;
+	}
+	ImGui::End();
+
+	if (GUIVisable)
+	{
+		ImGui::ShowDemoWindow(nullptr);
+		DrawPerformanceWindow();
+		DrawEditorWindow();
+		DrawHierarchyWindow();
+	}
+
+	ImGui::EndFrame();
+	ImGui::Render();
+	ImGui::UpdatePlatformWindows();
+	ImGui::RenderPlatformWindowsDefault();
+	ImGuiSDL::Render(ImGui::GetDrawData());
+	ImguiSample->EndSample();
+
+	SDL_RenderPresent(ScreenManager::GetInstance()->getRenderer());
+	SDL_Delay(16);
+	int i = 0;
+	Profiler::GetInstance()->EndFrame();
+	Time::GetInstance()->EndFrame();
+	frames.pushFrame(Time::GetInstance()->GetDeltaTime());
+
+	return quit;
+}
+
+void Game::SearchDirectory()
+{
+	for (IMGUISprite* object : directoryContent)
+	{
+		delete(object);
+	}
+	directoryContent.clear();
+	string DirectoryPath = "assets";
+	for (const auto& entry : filesystem::directory_iterator(DirectoryPath)) {
+		if (entry.path().extension() == ".bmp") {
+			IMGUISprite* Asset = new IMGUISprite(entry.path().string().c_str(), new Sprite(entry.path().string().c_str(), nullptr));
+			directoryContent.push_back(Asset);
+		}
+		else if (entry.is_directory()) {
+			cout << "dir " << entry << endl;
+		}
+	}
+}
+
+Game* Game::GetInstance()
+{
+	//creates a new objectManager class if ones does not exist to be referenced to
+	if (instance == NULL)
+		instance = new Game();
+	return instance;
+}
+
+void Game::LoadLevels()
+{
 	//main menu
 	{
 		BaseObject* TitleText = new BaseObject("title text", 350, 75, 0);
@@ -32,12 +140,12 @@ Game::Game() {
 
 		BaseObject* playButton = new BaseObject("play button", 550, 275, 0);
 		playButton->AddComponent(new Sprite("assets/ButtonBackground.bmp", playButton, 0));
-		playButton->AddComponent(new Text("assets/DejaVuSans.ttf", 100, playButton, "PLAY", { 0,0,0 }, {125,50}));
+		playButton->AddComponent(new Text("assets/DejaVuSans.ttf", 100, playButton, "PLAY", { 0,0,0 }, { 125,50 }));
 		playButton->AddComponent(new PlayButton(playButton));
 
 		BaseObject* quitButton = new BaseObject("quit button", 550, 550, 0);
 		quitButton->AddComponent(new Sprite("assets/ButtonBackground.bmp", quitButton, 0));
-		quitButton->AddComponent(new Text("assets/DejaVuSans.ttf", 100, quitButton, "QUIT", { 0,0,0 }, {125,50}));
+		quitButton->AddComponent(new Text("assets/DejaVuSans.ttf", 100, quitButton, "QUIT", { 0,0,0 }, { 125,50 }));
 		quitButton->AddComponent(new QuitButton(quitButton));
 	}
 
@@ -120,7 +228,7 @@ Game::Game() {
 		endWall->AddTag("Platform");
 	}
 
-	//main menu
+	//complete menu
 	{
 		BaseObject* winText = new BaseObject("win text", 425, 75, 2);
 		winText->AddComponent(new Text("assets/DejaVuSans.ttf", 100, winText, "Level Complete", { 255,255,255 }));
@@ -130,168 +238,70 @@ Game::Game() {
 		quitButton->AddComponent(new Text("assets/DejaVuSans.ttf", 100, quitButton, "QUIT", { 0,0,0 }, { 125,50 }));
 		quitButton->AddComponent(new QuitButton(quitButton));
 	}
-
-	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-
-	ImGuiSDL::Initialize(screen->getRenderer(), ScreenWidth, ScreenHeight);
-
-	ImGuiIO& io = ImGui::GetIO();
-
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
-	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
-	ImGui::StyleColorsDark();
-
-	ImGui_ImplSDL2_InitForOpenGL(screen->getWindow(), nullptr);
-
-	SearchDirectory();
-
-	BaseObject* temp = new BaseObject("temp", 0, 0, 1);
 }
 
-Game::~Game()
+void Game::DrawPerformanceWindow()
 {
-
-	if (mainSystem) {
-		mainSystem->~System();
-		delete screen;
-	}
-};
-
-bool Game::Update(void) {
-	Time::GetInstance()->StartFrame();
-	Profiler::GetInstance()->StartFrame();
-	SDL_RenderClear(m_renderer);
-	ImGui::NewFrame();
-	ImGui_ImplSDL2_NewFrame(screen->getWindow());
-
-	profileSample* input = new profileSample("poll inputs");
-	mainSystem->GetInputManager()->Update();
-	input->EndSample();
-
-	profileSample* events = new profileSample("fire events");
-	EventManager::GetInstance()->FireEvents(); //fires all the events of the previous
-	events->EndSample();
-
-	if (GUIVisable)
-		ImGui::Begin("Inspector");
-	updates->Update();
-	if (GUIVisable)
-		ImGui::End();
-
-	profileSample* ImguiSample = new profileSample("Imgui");
-	ImGui::Begin("Show Tools", 0, ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
-	if (GUIVisable) {
-		if (ImGui::Button("Hide Tools")) {
-			GUIVisable = false;
+	ImGui::Begin("Performance", 0, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
+	if (ImGui::TreeNodeEx("Frame Rate", ImGuiTreeNodeFlags_DefaultOpen)) {
+		if (frames.queue.size() > 0) {
+			float* queueTemp = &frames.queue[0];
+			ImGui::PlotLines("", queueTemp, frames.queue.size(), 1.0f, "", 0.0f, 0.2f, ImVec2(0, 80.0f));
+			char buffer[40];
+			snprintf(buffer, sizeof(buffer), "Average Frames: %F seconds", frames.GetAverage());
+			ImGui::Text(buffer);
 		}
+		ImGui::TreePop();
 	}
-	else {
-		if (ImGui::Button("Show Tools")) {
-			GUIVisable = true;
-		}
+	if (ImGui::TreeNodeEx("Flame Graph", ImGuiTreeNodeFlags_DefaultOpen)) {
+		Profiler::GetInstance()->DrawGUI();
+		ImGui::TreePop();
 	}
 	ImGui::End();
+}
 
-	if (GUIVisable)
+void Game::DrawEditorWindow()
+{
+	ImGui::Begin("Editor", 0, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
+	if (ImGui::Button("Refresh"))
+		SearchDirectory();
+
+	ImGui::BeginChild("Content Window", ImVec2(), true);
+	for (int i = 0; i < directoryContent.size(); i++)
 	{
-		ImGui::ShowDemoWindow(nullptr);
+		ImGui::PushID(directoryContent[i]->name.c_str());
 
-		ImGui::Begin("Performance");
-		if (ImGui::TreeNodeEx("Frame Rate", ImGuiTreeNodeFlags_DefaultOpen)) {
-			if (frames.queue.size() > 0) {
-				float* queueTemp = &frames.queue[0];
-				ImGui::PlotLines("", queueTemp, frames.queue.size(), 1.0f, "", 0.0f, 0.2f, ImVec2(0, 80.0f));
-				char buffer[40];
-				snprintf(buffer, sizeof(buffer), "Average Frames: %F seconds", frames.GetAverage());
-				ImGui::Text(buffer);
-			}
-				ImGui::TreePop();
+		ImGui::ImageButton((ImTextureID)directoryContent[i]->sprite->GetTexture(), { 100,100 });
+
+		if (ImGui::BeginDragDropSource()) {
+			contentBeingDragged = directoryContent[i];
+			ImGui::Image((ImTextureID)directoryContent[i]->sprite->GetTexture(), { 100,100 });
+			ImGui::EndDragDropSource();
 		}
-		if (ImGui::TreeNodeEx("Flame Graph", ImGuiTreeNodeFlags_DefaultOpen)) {
-			Profiler::GetInstance()->DrawGUI();
-			ImGui::TreePop();
-		}
-		ImGui::End();
 
-		ImGui::Begin("Editor");
-		if (ImGui::Button("Refresh"))
-			SearchDirectory();
-
-		ImGui::BeginChild("Content Window", ImVec2(), true);
-		for (int i = 0; i < directoryContent.size(); i++)
-		{
-			ImGui::PushID(directoryContent[i]->name.c_str());
-
-			ImGui::ImageButton((ImTextureID)directoryContent[i]->sprite->GetTexture(), { 100,100 });
-
-			ImGui::PopID();
-			if ((i + 1) % 8 != 0)
-				ImGui::SameLine();
-		}
-		ImGui::EndChild();
-		ImGui::End();
-
-
-		ImGui::Begin("Scene Hirarcy", 0);
-		ImGuiTreeNodeFlags nodeFlags = ImGuiTreeNodeFlags_FramePadding | ImGuiTreeNodeFlags_DefaultOpen;
-		ObjectManager::GetInstance()->GetSceneRoots()[ObjectManager::GetInstance()->currentScene]->DrawHierarchy(nodeFlags);
-		ImGui::End();
+		ImGui::PopID();
+		if ((i + 1) % 10 != 0)
+			ImGui::SameLine();
 	}
 
-	ImGui::EndFrame();
-	ImGui::Render();
-	ImGui::UpdatePlatformWindows();
-	ImGui::RenderPlatformWindowsDefault();
-	ImGuiSDL::Render(ImGui::GetDrawData());
-	ImguiSample->EndSample();
-
-	SDL_RenderPresent(m_renderer);
-	Delay(16);
-	int i = 0;
-	Profiler::GetInstance()->EndFrame();
-	Time::GetInstance()->EndFrame();
-	frames.pushFrame(Time::GetInstance()->GetDeltaTime());
-
-	return quit;
-}
-
-void Game::Delay(Uint32 ms) {
-	SDL_Delay(ms); //takes ms
-}
-
-void Game::SearchDirectory()
-{
-	for (IMGUISprite* object : directoryContent)
-	{
-		delete(object);
+	if (contentBeingDragged != nullptr && ImGui::IsMouseReleased(ImGuiMouseButton_Left)) {
+		int x, y;
+		SDL_GetMouseState(&x, &y);
+		BaseObject* newObject = new BaseObject(contentBeingDragged->name.c_str(), x, y, ObjectManager::GetInstance()->currentScene);
+		newObject->AddComponent(new Sprite(contentBeingDragged->name.c_str(), newObject));
+		contentBeingDragged = nullptr;
 	}
-	directoryContent.clear();
-	string DirectoryPath = "assets";
-	for (const auto& entry : filesystem::directory_iterator(DirectoryPath)) {
-		if (entry.path().extension() == ".bmp") {
-			IMGUISprite* Asset = new IMGUISprite(entry.path().string().c_str(), new Sprite(entry.path().string().c_str(), nullptr));
-			directoryContent.push_back(Asset);
-		}
-		else if (entry.is_directory()) {
-			cout << "dir " << entry << endl;
-		}
-		cout << entry.path() << endl;
-	}
+
+	ImGui::EndChild();
+	ImGui::End();
 }
 
-ScreenManager* Game::GetScreenManager()
+void Game::DrawHierarchyWindow()
 {
-	return screen;
-}
-
-Game* Game::GetInstance()
-{
-	//creates a new objectManager class if ones does not exist to be referenced to
-	if (instance == NULL)
-		instance = new Game();
-	return instance;
+	ImGui::Begin("Scene Hirarcy", 0, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
+	ImGuiTreeNodeFlags nodeFlags = ImGuiTreeNodeFlags_FramePadding | ImGuiTreeNodeFlags_DefaultOpen;
+	ObjectManager::GetInstance()->GetSceneRoots()[ObjectManager::GetInstance()->currentScene]->DrawHierarchy(nodeFlags);
+	ImGui::End();
 }
 
 

@@ -121,8 +121,6 @@ void BaseObject::Render()
 {
 	if (components[SPRITE] != nullptr)
 		components[SPRITE]->Update();
-	if (components[AUDIO] != nullptr)
-		components[AUDIO]->Update();
 	if (components[TEXT] != nullptr)
 		components[TEXT]->Update();
 }
@@ -137,6 +135,10 @@ void BaseObject::DrawGui()
 	ImGui::Text("Name"); ImGui::SameLine();
 	ImGui::InputText("    ", name, IM_ARRAYSIZE(name));
 
+	for (auto tag : tags) {
+		ImGui::Text(tag.c_str());
+	}
+
 	for (BaseComponent* component : components) {
 		if(component != nullptr)
 			component->DrawGui();
@@ -146,7 +148,22 @@ void BaseObject::DrawGui()
 
 void BaseObject::DrawHierarchy(ImGuiTreeNodeFlags flags)
 {
-	if (ImGui::TreeNodeEx(name, flags, name)) {
+	bool isNodeOpen = ImGui::TreeNodeEx(name, flags, name);
+	if (ImGui::IsItemClicked())
+		ObjectManager::GetInstance()->SetSelectedObject(this);
+	if (ObjectManager::GetInstance()->GetSelectedObject() == this && ImGui::BeginDragDropSource()) {
+		ImGui::SetDragDropPayload("_TREENODE", this, sizeof(BaseObject*));
+		ImGui::EndDragDropSource();
+	}
+	if (ImGui::BeginDragDropTarget()) {
+		if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("_TREENODE")) {
+			if(ObjectManager::GetInstance()->GetSelectedObject() != nullptr)
+				ObjectManager::GetInstance()->GetSelectedObject()->SetParent(this);
+		}
+		ImGui::EndDragDropTarget();
+	}
+
+	if (isNodeOpen) {
 		for (BaseObject* child : children) {
 			child->DrawHierarchy(flags);
 		}
@@ -176,6 +193,7 @@ void BaseObject::SetParent(BaseObject* parent_)
 		if (parent != ObjectManager::GetInstance()->GetSceneRoots()[scene] && parent != nullptr)
 			RemoveParent();
 
+		ObjectManager::GetInstance()->GetSceneRoots()[scene]->RemoveChild(this);
 		parent = parent_;
 		parent->AddChild(this);
 		
@@ -191,7 +209,7 @@ void BaseObject::RemoveParent()
 {
 	((Transform*)GetComponent(TRANSFORM))->SetPosition(((Transform*)GetComponent(TRANSFORM))->GetGlobalPos());
 	parent->RemoveChild(this);
-	SetParent(ObjectManager::GetInstance()->GetSceneRoots()[scene]);
+	parent =ObjectManager::GetInstance()->GetSceneRoots()[scene];
 }
 
 void BaseObject::RemoveChild(BaseObject* child)

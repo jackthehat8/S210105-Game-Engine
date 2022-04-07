@@ -1,42 +1,52 @@
-d:\game engine dev\jh t2\jh sdl default\debug\vc142.pdb
-d:\game engine dev\jh t2\jh sdl default\debug\vc142.idb
-d:\game engine dev\jh t2\jh sdl default\debug\system.obj
-d:\game engine dev\jh t2\jh sdl default\debug\screenmanager.obj
-d:\game engine dev\jh t2\jh sdl default\debug\resourcemanager.obj
-d:\game engine dev\jh t2\jh sdl default\debug\main.obj
-d:\game engine dev\jh t2\jh sdl default\debug\objectmanager.obj
-d:\game engine dev\jh t2\jh sdl default\debug\input.obj
-d:\game engine dev\jh t2\jh sdl default\debug\events.obj
-d:\game engine dev\jh t2\jh sdl default\debug\gameobject.obj
-d:\game engine dev\jh t2\jh sdl default\debug\game.obj
-d:\game engine dev\jh t2\jh sdl default\debug\eventmanager.obj
-d:\game engine dev\s210105 game engine\jh sdl default\debug\vc142.pdb
-d:\game engine dev\s210105 game engine\jh sdl default\debug\vc142.idb
-d:\game engine dev\s210105 game engine\jh sdl default\debug\system.obj
-d:\game engine dev\s210105 game engine\jh sdl default\debug\screenmanager.obj
-d:\game engine dev\s210105 game engine\jh sdl default\debug\resourcemanager.obj
-d:\game engine dev\s210105 game engine\jh sdl default\debug\main.obj
-d:\game engine dev\s210105 game engine\jh sdl default\debug\objectmanager.obj
-d:\game engine dev\s210105 game engine\jh sdl default\debug\input.obj
-d:\game engine dev\s210105 game engine\jh sdl default\debug\events.obj
-d:\game engine dev\s210105 game engine\jh sdl default\debug\gameobject.obj
-d:\game engine dev\s210105 game engine\jh sdl default\debug\game.obj
-d:\game engine dev\s210105 game engine\jh sdl default\debug\eventmanager.obj
-d:\game engine dev\jh t2\jh sdl default\debug\s210105 game engine.ilk
-d:\game engine dev\jh t2\debug\s210105 game engine.exe
-d:\game engine dev\jh t2\debug\s210105 game engine.pdb
-d:\game engine dev\s210105 game engine\debug\s210105 game engine.exe
-d:\game engine dev\s210105 game engine\jh sdl default\debug\s210105 game engine.ilk
-d:\game engine dev\s210105 game engine\debug\s210105 game engine.pdb
-d:\game engine dev\s210105 game engine\jh sdl default\debug\bitmap.obj
-d:\game engine dev\s210105 game engine\jh sdl default\debug\i_updateable.obj
-d:\game engine dev\s210105 game engine\jh sdl default\debug\jh sdl default.ilk
-d:\game engine dev\s210105 game engine\jh sdl default\debug\jh t1 ex1.ilk
-d:\game engine dev\s210105 game engine\jh sdl default\debug\jh t1 ex2.ilk
-d:\game engine dev\s210105 game engine\jh sdl default\debug\jh t2.ilk
-d:\game engine dev\s210105 game engine\jh sdl default\debug\s210105 .ce281397.tlog\cl.command.1.tlog
-d:\game engine dev\s210105 game engine\jh sdl default\debug\s210105 .ce281397.tlog\cl.read.1.tlog
-d:\game engine dev\s210105 game engine\jh sdl default\debug\s210105 .ce281397.tlog\cl.write.1.tlog
-d:\game engine dev\s210105 game engine\jh sdl default\debug\s210105 .ce281397.tlog\link.command.1.tlog
-d:\game engine dev\s210105 game engine\jh sdl default\debug\s210105 .ce281397.tlog\link.read.1.tlog
-d:\game engine dev\s210105 game engine\jh sdl default\debug\s210105 .ce281397.tlog\link.write.1.tlog
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\vc142.pdb
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\vc142.idb
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\resourcemanager.obj
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\physics.obj
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\main.obj
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\objectmanager.obj
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\inputmanager.obj
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\events.obj
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\gameobject.obj
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\game.obj
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\eventmanager.obj
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\baseobject.obj
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\basecomponent.obj
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\imgui_sdl.obj
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\imgui_widgets.obj
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\imgui_tables.obj
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\imgui_draw.obj
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\imgui_demo.obj
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\imgui.obj
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\imgui_impl_sdl.obj
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\transform.obj
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\time.obj
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\system.obj
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\sprite.obj
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\basescript.obj
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\screenmanager.obj
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\player.obj
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\cameramovement.obj
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\enemy.obj
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\scenemanager.obj
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\quit.obj
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\text.obj
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\quitbutton.obj
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\playbutton.obj
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\guibutton.obj
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\profiler.obj
+f:\-- uni --\year 2\game engine dev\s210105 game engine\debug\s210105 game engine.exe
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\s210105 game engine.ilk
+f:\-- uni --\year 2\game engine dev\s210105 game engine\debug\s210105 game engine.pdb
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\baseobject.obj.enc
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\game.obj.enc
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\gameobject.obj.enc
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\profiler.obj.enc
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\resourcemanager.obj.enc
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\vc143.idb
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\vc143.pdb
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\s210105 .ce281397.tlog\cl.command.1.tlog
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\s210105 .ce281397.tlog\cl.read.1.tlog
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\s210105 .ce281397.tlog\cl.write.1.tlog
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\s210105 .ce281397.tlog\link.command.1.tlog
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\s210105 .ce281397.tlog\link.read.1.tlog
+f:\-- uni --\year 2\game engine dev\s210105 game engine\jh sdl default\debug\s210105 .ce281397.tlog\link.write.1.tlog
