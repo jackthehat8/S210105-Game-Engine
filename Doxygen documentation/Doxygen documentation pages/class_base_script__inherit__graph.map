@@ -1,0 +1,11 @@
+<map id="BaseScript" name="BaseScript">
+<area shape="rect" id="node1" title=" " alt="" coords="241,80,328,107"/>
+<area shape="rect" id="node3" href="$class_camera_movement.html" title="moves the sceneRoot based on the movement of the camera" alt="" coords="5,155,132,181"/>
+<area shape="rect" id="node4" href="$class_enemy.html" title=" " alt="" coords="156,155,219,181"/>
+<area shape="rect" id="node5" href="$class_g_u_i_button.html" title="This is used to make a button that can be press on screen." alt="" coords="243,155,326,181"/>
+<area shape="rect" id="node8" href="$class_player.html" title=" " alt="" coords="350,155,409,181"/>
+<area shape="rect" id="node9" href="$class_quit.html" title=" " alt="" coords="433,155,480,181"/>
+<area shape="rect" id="node2" href="$class_base_component.html" title=" " alt="" coords="225,5,344,32"/>
+<area shape="rect" id="node6" href="$class_play_button.html" title=" " alt="" coords="187,229,273,256"/>
+<area shape="rect" id="node7" href="$class_quit_button.html" title=" " alt="" coords="297,229,381,256"/>
+</map>

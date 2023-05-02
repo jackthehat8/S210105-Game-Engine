@@ -1,0 +1,6 @@
+<map id="PlayButton" name="PlayButton">
+<area shape="rect" id="node1" title=" " alt="" coords="21,229,108,256"/>
+<area shape="rect" id="node2" href="$class_g_u_i_button.html" title="This is used to make a button that can be press on screen." alt="" coords="23,155,106,181"/>
+<area shape="rect" id="node3" href="$class_base_script.html" title=" " alt="" coords="21,80,108,107"/>
+<area shape="rect" id="node4" href="$class_base_component.html" title=" " alt="" coords="5,5,124,32"/>
+</map>

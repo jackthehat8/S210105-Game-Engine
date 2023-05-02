@@ -1,0 +1,5 @@
+<map id="CameraMovement" name="CameraMovement">
+<area shape="rect" id="node1" title="moves the sceneRoot based on the movement of the camera" alt="" coords="5,155,132,181"/>
+<area shape="rect" id="node2" href="$class_base_script.html" title=" " alt="" coords="25,80,112,107"/>
+<area shape="rect" id="node3" href="$class_base_component.html" title=" " alt="" coords="9,5,128,32"/>
+</map>

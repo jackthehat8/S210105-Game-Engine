@@ -1,0 +1,4 @@
+<map id="QuitEvent" name="QuitEvent">
+<area shape="rect" id="node1" title="This is a quit event" alt="" coords="8,80,87,107"/>
+<area shape="rect" id="node2" href="$class_base_event.html" title="This is the event all other events inherit from." alt="" coords="5,5,89,32"/>
+</map>

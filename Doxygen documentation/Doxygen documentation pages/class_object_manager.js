@@ -1,0 +1,26 @@
+var class_object_manager =
+[
+    [ "ObjectManager", "class_object_manager.html#a6fa9372c7c3a8da88412f4158ca3dfd9", null ],
+    [ "~ObjectManager", "class_object_manager.html#a25b057e6d1e60c9cbeb29d41923d8c2c", null ],
+    [ "AddObject", "class_object_manager.html#ad9c59c4871eeae8b9519e1e23f91dbae", null ],
+    [ "AddSceneRoot", "class_object_manager.html#ac965346cbf22ab33994fa5d94b22e00c", null ],
+    [ "CheckIfClicked", "class_object_manager.html#aae0f5c076fea6eb7eb18a9ccb00690e7", null ],
+    [ "ComponentTypeToString", "class_object_manager.html#ad4d1e8cbd69264790114551f85a774ff", null ],
+    [ "DrawGui", "class_object_manager.html#af3bb077d1e45b2f817b37e49c2f7ff28", null ],
+    [ "GetObjects", "class_object_manager.html#a54899b719c4400e84082319666d892ee", null ],
+    [ "GetSceneRoots", "class_object_manager.html#aa30fc2841fd06c02d692b6d29501cd22", null ],
+    [ "GetSelectedObject", "class_object_manager.html#a7749eae07d8a1fb6c12c5d74d55d2959", null ],
+    [ "OnMouseDown", "class_object_manager.html#a11597b6f51b1aad9fe651afc36016055", null ],
+    [ "OnMouseHeld", "class_object_manager.html#a9d013af49adf73847b1ebfb40c4677dd", null ],
+    [ "OnMouseUp", "class_object_manager.html#ac0b113a0665f69a45c0fa4f68472ad9e", null ],
+    [ "PostRender", "class_object_manager.html#a92268ce145184d403dbb01db3497461e", null ],
+    [ "PreRender", "class_object_manager.html#a0be20f402c1fddc2ea9586512d8908b2", null ],
+    [ "QuickSort", "class_object_manager.html#a8fb451b9f24ed71837ec6157e666e5e7", null ],
+    [ "Render", "class_object_manager.html#a8f4b3699e5a9031edc4e72fbd6a1705d", null ],
+    [ "SetHeldObject", "class_object_manager.html#a70eec2e8fcd4ee848bf7a6c884bc4a18", null ],
+    [ "SetScene", "class_object_manager.html#a477aec3f5c3d0aaa9b565b61055c993b", null ],
+    [ "SetSelectedObject", "class_object_manager.html#a5a023bbcc15d5ec3e93ca64cc52c2bd0", null ],
+    [ "sortObjects", "class_object_manager.html#a81870c66b322e4428f1925097da64379", null ],
+    [ "Update", "class_object_manager.html#ac6035906749a40ec3a1d685ebed11c89", null ],
+    [ "currentScene", "class_object_manager.html#aa87167a3de8d0b2bcc897901544c825d", null ]
+];

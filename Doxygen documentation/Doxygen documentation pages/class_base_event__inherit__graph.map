@@ -1,0 +1,10 @@
+<map id="BaseEvent" name="BaseEvent">
+<area shape="rect" id="node1" title="This is the event all other events inherit from." alt="" coords="265,5,349,32"/>
+<area shape="rect" id="node2" href="$class_key_input.html" title="This is used for all events that get a key in their funciton." alt="" coords="221,80,295,107"/>
+<area shape="rect" id="node8" href="$class_quit_event.html" title="This is a quit event" alt="" coords="319,80,397,107"/>
+<area shape="rect" id="node3" href="$class_escape_input.html" title="Used for when the escape key is pressed." alt="" coords="5,155,100,181"/>
+<area shape="rect" id="node4" href="$class_left_input.html" title="Used for an input that will make the player go to the left." alt="" coords="124,155,195,181"/>
+<area shape="rect" id="node5" href="$class_l_m_b_input.html" title="Used for when the mouse is clicked." alt="" coords="219,155,297,181"/>
+<area shape="rect" id="node6" href="$class_right_input.html" title="Used for an input that will make the player go to the right." alt="" coords="321,155,401,181"/>
+<area shape="rect" id="node7" href="$class_up_input.html" title="Used for an input that will make the player go up." alt="" coords="425,155,491,181"/>
+</map>

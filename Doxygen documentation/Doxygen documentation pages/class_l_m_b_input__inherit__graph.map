@@ -1,0 +1,5 @@
+<map id="LMBInput" name="LMBInput">
+<area shape="rect" id="node1" title="Used for when the mouse is clicked." alt="" coords="9,155,86,181"/>
+<area shape="rect" id="node2" href="$class_key_input.html" title="This is used for all events that get a key in their funciton." alt="" coords="11,80,84,107"/>
+<area shape="rect" id="node3" href="$class_base_event.html" title="This is the event all other events inherit from." alt="" coords="5,5,89,32"/>
+</map>
